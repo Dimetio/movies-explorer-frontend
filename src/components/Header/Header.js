@@ -1,15 +1,26 @@
 import logo from '../../images/logo.svg'
 import './Header.css';
-import {useState, useEffect} from 'react';
+import Guest from '../Guest/Guest'
+import AuthUser from '../AuthUser/AuthUser'
+import NavTab from '../NavTab/NavTab'
 
 export default function Header() {
+  let isMain;
+  
+  window.location.pathname === '/' 
+  ? isMain = true 
+  : isMain = false;
+
   return (
-    <header className="header">
+    <header className={`header ${!isMain && "header-dark"}`}>
       <a href="/"><img src={logo} alt="логотип" className="header__logo"/></a>
-      <div className="header__links">
-        <a href="/signup" className="header__link header__link-signup">Регистрация</a>
-        <a href="/signin" className="header__link header__link-signin">Войти</a>
-      </div>
+
+      {!isMain && <NavTab />}
+
+      {isMain 
+      ? <Guest />
+      : <AuthUser />
+      }
     </header>
   )
 }

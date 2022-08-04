@@ -3,7 +3,11 @@
   align-items: center;
   justify-content: space-between;
   background-color: #073042;
-  padding: 0 70px 75px;
+  padding: 0 70px;
+}
+
+.header-dark {
+  background-color: #202020;
 }
 
 .header__logo {
@@ -11,6 +15,11 @@
   max-width: 38px;
   height: auto;
   margin: 18px 0;
+}
+
+.header__links {
+  display: flex;
+  align-items: center;
 }
 
 .header__link {
@@ -21,10 +30,21 @@
   line-height: 16px;
   text-decoration: none;
   transition: all .3s;
+  color: #fff;
 }
 
-.header__link-signup {
-  color: #fff;
+.header__nav-link {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.header__nav-link_active {
+  font-weight: 500;
+}
+
+.header__nav-link+.header__nav-link {
+  margin-left: 16px;
 }
 
 .header__link-signup:hover {
@@ -41,6 +61,33 @@
 
 .header__link-signin:hover {
   color: #fff;
+}
+
+.header__link-account {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.header__link-account:hover {
+  opacity: .7;
+}
+
+.header__link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: #313131;
+  border-radius: 6px;
+  margin-left: 13px;
+}
+
+.header__link-icon:hover {
+  opacity: 0.7;
 }
 
 @media (max-width: 768px) {
