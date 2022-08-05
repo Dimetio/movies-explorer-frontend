@@ -96,7 +96,7 @@
 
 @media (max-width: 425px) {
   .promo {
-    padding: 0 10px 30px;
+    padding: 0 0 30px;
   }
 
   .promo__content {

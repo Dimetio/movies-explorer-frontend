@@ -5,6 +5,9 @@
   background: #222222;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
+}
+
+.card:hover {
   cursor: pointer;
 }
 
@@ -33,7 +36,7 @@
   margin: 0;
 }
 
-.card__like {
+.card-icon {
   width: 14px;
   height: 12px;
   margin-left: 12px;
