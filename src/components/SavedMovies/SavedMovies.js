@@ -1,7 +1,16 @@
-import './SavedMovies.css'
+import './SavedMovies.css';
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCard from '../MoviesCard/MoviesCard'
 
 export default function SavedMovies() {
   return (
-    <div>SavedMovies</div>
+    <>
+      <SearchForm />
+      <section className="saved-movies-list container">
+        <MoviesCard />
+        <MoviesCard />
+        <MoviesCard />
+      </section>
+    </>
   )
 }
