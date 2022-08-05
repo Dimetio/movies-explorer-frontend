@@ -1,13 +1,15 @@
+.header-bg {
+  background-color: #073042;
+}
+
+.header-bg-dark {
+  background-color: #202020;
+}
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #073042;
-  padding: 0 70px;
-}
-
-.header-dark {
-  background-color: #202020;
 }
 
 .header__logo {

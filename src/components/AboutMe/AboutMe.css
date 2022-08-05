@@ -6,7 +6,7 @@
 .about-me__wrap {
   display: flex;
   align-items: flex-start;
-  margin: 66px 70px 0;
+  margin: 66px 0 0;
 }
 
 .about-me__info {

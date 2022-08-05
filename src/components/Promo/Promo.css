@@ -1,6 +1,9 @@
-.promo {
-  padding: 70px 70px 84px;
+.promo-bg {
   background-color: #073042;
+}
+
+.promo {
+  padding: 70px 0 84px; 
 }
 
 .promo__content {

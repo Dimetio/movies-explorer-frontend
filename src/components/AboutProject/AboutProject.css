@@ -6,7 +6,7 @@
 .about-project__desc {
   display: flex;
   justify-content: space-between;
-  padding: 70px 70px 110px;
+  padding: 70px 0 110px;
 }
 
 .about-project__wrap {
@@ -41,7 +41,6 @@
 /* calendar */
 .calendar {
   display: flex;
-  margin: 0 70px;
   padding-bottom: 110px;
 }
 

@@ -2,7 +2,7 @@ import './Footer.css';
 
 export default function Footer() {
   return (
-    <section className="footer">
+    <section className="footer container">
       <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
 
       <div className="footer-wrap">

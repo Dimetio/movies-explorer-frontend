@@ -12,15 +12,17 @@ export default function Header() {
   : isMain = false;
 
   return (
-    <header className={`header ${!isMain && "header-dark"}`}>
-      <a href="/"><img src={logo} alt="логотип" className="header__logo"/></a>
+    <div className={`header-bg ${!isMain && "header-bg-dark"}`}>
+        <header className="header container">
+        <a href="/"><img src={logo} alt="логотип" className="header__logo"/></a>
 
-      {!isMain && <NavTab />}
+        {!isMain && <NavTab />}
 
-      {isMain 
-      ? <Guest />
-      : <AuthUser />
-      }
-    </header>
+        {isMain 
+        ? <Guest />
+        : <AuthUser />
+        }
+      </header>
+    </div>
   )
 }
