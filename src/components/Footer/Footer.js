@@ -15,9 +15,6 @@ export default function Footer({footerDisable}) {
             <li className="footer__social-links__item">
                 <a href="https://github.com/Dimetio" target="_blank" className="footer__social-links__link" rel="noreferrer">Github</a>
             </li>
-            <li className="footer__social-links__item">
-                <a href="https://www.facebook.com/profile.php?id=100008160217923" target="_blank" className="footer__social-links__link" rel="noreferrer">Facebook</a>
-            </li>
           </ul>
       </div>
     </footer>

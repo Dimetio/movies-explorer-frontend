@@ -59,7 +59,7 @@
   }
 
   .about-me__wrap {
-    margin: 66px 50px 0;
+    margin: 66px 20px 0;
   }
 
   .about-me__title {
@@ -92,13 +92,13 @@
   }
 
   .about-me .section__title {
-    margin: 0 14px;
+    margin: 0;
   }
 
   .about-me__wrap {
     flex-direction: column-reverse;
     align-content: center;
-    margin: 60px 14px 0;
+    margin: 60px 0 0;
   }
 
   .about-me__img {

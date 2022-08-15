@@ -90,7 +90,7 @@
   }
 
   .about-project__desc {
-    padding: 70px 50px 93px;
+    padding: 70px 20px 90px;
   }
 
   .about-project__text {
@@ -103,8 +103,12 @@
   }
 
   .calendar {
-    margin: 0 50px;
+    margin: 0 20px;
     padding-bottom: 76px;
+  }
+
+  .calendar__wrap-short {
+    min-width: 140px;
   }
 }
 
@@ -115,7 +119,7 @@
 
   .about-project__desc {
     flex-direction: column;
-    padding: 60px 18px 60px;
+    padding: 60px 5px 58px;
   }
 
   .about-project__wrap+.about-project__wrap {
@@ -135,7 +139,7 @@
   }
 
   .calendar {
-    margin: 0 18px;
+    margin: 0 5px;
   }
 
   .calendar__week {
@@ -145,6 +149,7 @@
 
   .calendar__wrap-short {
     max-width: 100px;
+    min-width: 0;
   }
 
   .calendar__note {

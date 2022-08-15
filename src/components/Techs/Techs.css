@@ -15,7 +15,7 @@
   text-align: center;
   letter-spacing: -0.04em;
   color: #fff;
-  margin: 90px auto 26px;
+  margin: 90px auto 22px;
 }
 
 .techs__subtitle {
@@ -28,6 +28,7 @@
   letter-spacing: -0.04em;
   color: #fff;
   margin: 0 auto 100px;
+  max-width: 460px;
 }
 
 .techs__list {

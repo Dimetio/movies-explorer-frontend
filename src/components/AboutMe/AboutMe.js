@@ -16,9 +16,6 @@ export default function AboutMe() {
 
           <ul className="social-links">
             <li className="social-links__item">
-                <a href="https://www.facebook.com/profile.php?id=100008160217923" target="_blank" className="social-links__link" rel="noreferrer">Facebook</a>
-            </li>
-            <li className="social-links__item">
                 <a href="https://github.com/Dimetio" target="_blank" className="social-links__link" rel="noreferrer">Github</a>
             </li>
           </ul>
