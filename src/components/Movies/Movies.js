@@ -9,7 +9,7 @@ export default function Movies() {
 
       <MoviesCardList />
 
-      <button type="button" className="movies-list__more">Еще</button>
+      <button type="button" className="movies-list__more">Ещё</button>
     </>
     
   )

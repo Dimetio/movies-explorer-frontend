@@ -1,9 +1,10 @@
 .movies-list {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   flex-wrap: wrap;
   gap: 37px 24px;
+  margin-top: 70px;
 }
 
 .movies-list__more {
@@ -22,7 +23,7 @@
   width: 320px;
   height: 36px;
   border: none;
-  margin: 50px auto 80px;
+  margin: 58px auto 100px;
   cursor: pointer;
 }
 
@@ -35,6 +36,9 @@
     gap: 30px;
   }
 
+  .movies-list__more {
+    margin: 80px auto 100px;
+  }
 }
 
 @media (max-width: 425px) {
