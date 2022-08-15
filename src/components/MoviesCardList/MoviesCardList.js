@@ -10,8 +10,6 @@ export default function MoviesCardList() {
       <MoviesCard />
       <MoviesCard />
       <MoviesCard />
-
-      <button type="button" className="movies-list__more">Еще</button>
     </section>
   )
 }

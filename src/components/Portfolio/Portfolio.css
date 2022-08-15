@@ -82,4 +82,8 @@
     font-size: 18px;
     line-height: 28px;
   }
+
+  .portfolio__list-item+.portfolio__list-item {
+    border-top: 1px solid #E6E6E6;
+  }
 }

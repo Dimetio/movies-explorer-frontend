@@ -17,8 +17,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
   border-radius: 50%;
   border: none;
   padding: 0;
@@ -57,9 +55,9 @@
 }
 
 .search-form__icon {
-  display: block;
-  width: 15px;
-  height: 10px;
+  width: 22px;
+  height: 22px;
+  padding: 6px;
 }
 
 .switch-wrap {
@@ -132,4 +130,16 @@
   line-height: 18px;
   color: #FFFFFF;
   margin: 0;
+}
+
+@media (max-width: 425px) {
+  .search-form__button_primary {
+    display: none;
+  }
+
+  .search-form__input {
+    text-align: left;
+    font-size: 18px;
+    line-height: 22px;
+  }
 }

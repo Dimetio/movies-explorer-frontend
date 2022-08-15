@@ -2,6 +2,10 @@ body {
   background-color: #202020;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -53,6 +57,12 @@ body {
   opacity: .7;
 }
 
+@media (max-width: 1024px) {
+  .container {
+    max-width: 950px;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     max-width: 708px;
@@ -63,10 +73,27 @@ body {
   }
 }
 
+
+@media (max-width: 640px) {
+  .container {
+    max-width: 600px;
+  }
+}
+
 @media (max-width: 425px) {
+  .container {
+    max-width: 400px;
+  }
+
   .section__title {
     margin: 0 18px;
   }  
+}
+
+@media (max-width: 375px) {
+  .container {
+    max-width: 350px;
+  }
 }
 
 @media (max-width: 320px) {

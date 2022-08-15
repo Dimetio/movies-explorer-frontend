@@ -1,7 +1,7 @@
 .saved-movies-list {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   flex-wrap: wrap;
   gap: 37px 24px;
 }

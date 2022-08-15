@@ -6,7 +6,10 @@ export default function Movies() {
   return (
     <>
       <SearchForm />
+
       <MoviesCardList />
+
+      <button type="button" className="movies-list__more">Еще</button>
     </>
     
   )

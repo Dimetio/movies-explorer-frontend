@@ -1,10 +1,14 @@
 import './NavTab.css';
+import { NavLink } from 'react-router-dom';
+
+const setActive = ({ isActive }) => isActive ? "nav-link nav-link_active" : "nav-link"
 
 export default function NavTab() {
   return (
-    <div className="header__nav">
-      <a href="/movies" className="header__link header__nav-link header__nav-link_active">Фильмы</a>
-      <a href="/saved-movies" className="header__link header__nav-link">Сохранённые фильмы</a>
+    <div className="nav">
+      <NavLink end to="/" className="nav-link nav-link-hide">Главная</NavLink>
+      <NavLink to="/movies" className={setActive}>Фильмы</NavLink>
+      <NavLink to="/saved-movies" className={setActive}>Сохранённые фильмы</NavLink>
     </div>
   )
 }

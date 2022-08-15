@@ -22,10 +22,23 @@
   width: 320px;
   height: 36px;
   border: none;
-  margin: 50px 0 80px;
+  margin: 50px auto 80px;
   cursor: pointer;
 }
 
 .movies-list__more:hover {
   opacity: .7;
+}
+
+@media (max-width: 768px) {
+  .movies-list {
+    gap: 30px;
+  }
+
+}
+
+@media (max-width: 425px) {
+  .movies-list {
+    gap: 14px;
+  }
 }

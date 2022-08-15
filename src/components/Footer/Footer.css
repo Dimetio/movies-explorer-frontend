@@ -4,6 +4,10 @@
   margin-top: auto;
 }
 
+.footer-disable {
+  display: none;
+}
+
 .footer__title {
   margin: 0 0 20px;
   padding: 60px 0 20px;

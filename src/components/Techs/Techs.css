@@ -85,9 +85,11 @@
   .techs {
     padding-top: 52px;
   }
+
   .techs .section__title {
     border-bottom: 1px solid #000;
   }
+  
   .techs__title {
     font-size: 30px;
     line-height: 36px;
@@ -114,5 +116,11 @@
 
   .techs__list-item+.techs__list-item {
     margin: 0;
+  }
+}
+
+@media (max-width: 320px) { 
+  .techs__list {
+    padding: 0 53px 70px;
   }
 }

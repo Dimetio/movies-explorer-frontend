@@ -1,8 +1,8 @@
 import './Footer.css';
 
-export default function Footer() {
+export default function Footer({footerDisable}) {
   return (
-    <section className="footer container">
+    <footer className={`footer container ${footerDisable && "footer-disable"}`}>
       <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
 
       <div className="footer-wrap">
@@ -20,6 +20,6 @@ export default function Footer() {
             </li>
           </ul>
       </div>
-    </section>
+    </footer>
   )
 }

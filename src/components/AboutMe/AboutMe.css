@@ -103,9 +103,9 @@
 
   .about-me__img {
     margin: 0 auto 40px;
-    width: 292px;
+    width: 100%;
     max-width: 292px;
-    height: 352px;
+    max-height: 352px;
   }
 
   .about-me__title {

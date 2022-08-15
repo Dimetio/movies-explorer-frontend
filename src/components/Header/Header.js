@@ -1,10 +1,13 @@
-import logo from '../../images/logo.svg'
-import './Header.css';
-import Guest from '../Guest/Guest'
-import AuthUser from '../AuthUser/AuthUser'
-import NavTab from '../NavTab/NavTab'
+import { Link } from 'react-router-dom';
 
-export default function Header() {
+import logo from '../../images/logo.svg';
+import './Header.css';
+import Guest from '../Guest/Guest';
+import AuthUser from '../AuthUser/AuthUser';
+import NavTab from '../NavTab/NavTab';
+import Burger from '../Burger/Burger';
+
+export default function Header({isOpen, handleIconClick, headerDisable}) {
   let isMain;
   
   window.location.pathname === '/' 
@@ -12,16 +15,27 @@ export default function Header() {
   : isMain = false;
 
   return (
-    <div className={`header-bg ${!isMain && "header-bg-dark"}`}>
+    <div className={`header-bg ${!isMain && "header-bg-dark"} ${headerDisable && "header-disable"}`}>
         <header className="header container">
-        <a href="/"><img src={logo} alt="логотип" className="header__logo"/></a>
+        <Link to="/"><img src={logo} alt="логотип" className="header__logo"/></Link>
 
-        {!isMain && <NavTab />}
+        <div className={`header__nav ${!isMain && "burger-nav"}`}>
+          {!isMain && <NavTab />}
 
-        {isMain 
-        ? <Guest />
-        : <AuthUser />
-        }
+          {isMain 
+          ? <Guest />
+          : <AuthUser />
+          }
+        </div>
+
+        {!isMain 
+        ?
+          <Burger 
+          isOpen={isOpen}
+          handleIconClick={handleIconClick}
+        /> 
+        : null
+        }        
       </header>
     </div>
   )
