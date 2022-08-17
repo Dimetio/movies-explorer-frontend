@@ -21,7 +21,22 @@ function toggleClassBody(isOpen) {
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [disableComponent, setDisableComponent] = useState({header: false, footer: false})
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({name: "Dmitry", email: "ddubinin.dmitry@mail.ru"})
+
+  function handleSignup(name, email, password) {
+    setIsLoggedIn(true);
+    setCurrentUser({
+      name,
+      email
+    });
+  }
+
+  function handleSignin({name, email}) {
+    setIsLoggedIn(true);
+    setCurrentUser({ name, email })
+  }
+
   function handleIconClick() {
     setIsOpen(!isOpen);
 
@@ -55,12 +70,12 @@ function App() {
 
             <Route 
               path="/signin"
-              element={<Login />}
+              element={<Login signin={handleSignin}/>}
             />
 
             <Route 
               path="/signup"
-              element={<Register />}
+              element={<Register signup={handleSignup}/>}
             />
 
             <Route 

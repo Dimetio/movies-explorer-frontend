@@ -1,7 +1,30 @@
+import { useState } from "react";
+import { Link } from 'react-router-dom';
+
 import './Form.css';
 import logo from '../../images/logo.svg';
 
-export default function Form({title, children, buttonText, question, linkText, url}) {
+export default function Form({
+  onSubmit, 
+  title, 
+  children, 
+  buttonText, 
+  question, 
+  linkText, 
+  url
+  }) {
+  const [inputsData, setInputsData] = useState({});
+
+  function onChangeInput(inputData) {
+    setInputsData({...inputsData, ...inputData})
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmit(inputsData);
+    
+    console.log(inputsData);
+  }
 
   return (
     <>
@@ -11,9 +34,9 @@ export default function Form({title, children, buttonText, question, linkText, u
 
       <h2 className="form-title">{title}</h2>
 
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <div className="form__inputs">
-          {children}
+          {children({ onChangeInput, inputsData})}
         </div>
 
         <button className="form__boutton" type="submit">
@@ -23,7 +46,7 @@ export default function Form({title, children, buttonText, question, linkText, u
 
         <p className="form__question">
           {question}
-          <a href={url} className="form__link">{linkText}</a>
+          <Link to={url} className="form__link">{linkText}</Link>
         </p>
     </>
   )

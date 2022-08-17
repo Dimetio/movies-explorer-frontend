@@ -7,12 +7,13 @@ export default function Input({
   name,
   type,
   value,
-  placeholder
+  placeholder,
+  onChange
   }) {
 
-  function handleChange(e) {
-    e.preventDefault();
-  }
+    function handleChange(e) {
+      onChange({[name]: e.target.value})
+    } 
 
   return (
     <>
@@ -23,7 +24,7 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           className={`input ${inputClass}`}
-          value={value || ""}
+          value={value}
           onChange={handleChange}
         />
       </label>

@@ -5,7 +5,7 @@ import './Login.css';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 
-export default function Login({email="pochta@ya.ru"}) {
+export default function Login({signin}) {
   const disableComponent = useContext(DisableComponentContext);
 
   useEffect(()=> {
@@ -24,24 +24,31 @@ export default function Login({email="pochta@ya.ru"}) {
         question="Ещё не Зарегистрированы?"
         linkText="Регистрироваться"
         url="/signup"
+        onSubmit={signin}
       >
-        <Input 
-            inputTitle="E-mail"
-            name="email"
-            type="email"
-            placeholder="Введите E-mail"
-            value={email || ""}
-            inputClass="input-border"
-        />
+        {({onChangeInput, inputsData}) => 
+          <>
+            <Input 
+              inputTitle="E-mail"
+              name="email"
+              type="email"
+              placeholder="Введите E-mail"
+              value={inputsData.email || ""}
+              inputClass="input-border"
+              onChange={onChangeInput}
+            />
 
-        <Input 
-            inputTitle="Пароль"
-            name="password"
-            type="password"
-            placeholder="Введите пароль"
-            value={""}
-            inputClass="input-border"
-        />
+            <Input 
+              inputTitle="Пароль"
+              name="password"
+              type="password"
+              placeholder="Введите пароль"
+              inputClass="input-border"
+              onChange={onChangeInput}
+            />
+          </>
+        }
+        
       </Form>
     </section>
   )
