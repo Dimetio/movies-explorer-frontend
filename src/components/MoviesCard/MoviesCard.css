@@ -24,6 +24,7 @@
   height: auto;
   max-height: 203px;
   margin-bottom: 10px;
+  border-radius: 6px;
 }
 
 .card__title {
@@ -36,10 +37,10 @@
   margin: 0;
 }
 
-.card-icon {
-  width: 14px;
-  height: 12px;
-  margin-right: 8px;
+.card-btn {
+  border: none;
+  background-color: transparent;
+  padding: 0;
 }
 
 .card__duration {

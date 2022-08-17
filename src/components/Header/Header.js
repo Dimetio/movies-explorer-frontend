@@ -15,8 +15,8 @@ export default function Header({isOpen, handleIconClick, headerDisable}) {
   : isMain = false;
 
   return (
-    <div className={`header-bg ${!isMain && "header-bg-dark"} ${headerDisable && "header-disable"}`}>
-        <header className="header container">
+    <header className={`header-bg ${!isMain && "header-bg-dark"} ${headerDisable && "header-disable"}`}>
+        <div className="header container">
         <Link to="/"><img src={logo} alt="логотип" className="header__logo"/></Link>
 
         <div className={`header__nav ${!isMain && "burger-nav"}`}>
@@ -30,13 +30,13 @@ export default function Header({isOpen, handleIconClick, headerDisable}) {
 
         {!isMain 
         ?
-          <Burger 
+        <Burger 
           isOpen={isOpen}
           handleIconClick={handleIconClick}
         /> 
         : null
         }        
-      </header>
-    </div>
+      </div>
+    </header>
   )
 }

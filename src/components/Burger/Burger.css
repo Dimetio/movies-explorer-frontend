@@ -13,7 +13,7 @@
   
   .burger__icon {
     cursor: pointer;
-    z-index: 3;
+    z-index: 30;
   }
 
   .burger__links {
@@ -44,7 +44,7 @@
     max-width: 520px;
     background-color: #202020;
     height: 100%;
-    z-index: 2;
+    z-index: 20;
     transition: all .5s;
   }
 

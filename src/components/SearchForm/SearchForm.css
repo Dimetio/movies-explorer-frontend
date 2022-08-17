@@ -50,10 +50,6 @@
   padding: 0;
 }
 
-.search-form__input {
-  outline: none;
-}
-
 .search-form__icon {
   width: 22px;
   height: 22px;

@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 export default function MoviesCardList() {
   return (
-    <section className="movies-list container">
+    <section className="movies-list">
       <MoviesCard />
       <MoviesCard />
       <MoviesCard />

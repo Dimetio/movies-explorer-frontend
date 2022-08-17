@@ -18,8 +18,8 @@ export default function MoviesCard() {
       <div className="card-wrap">
         <p className="card__title">33 слова о дизайне</p>
 
-        {isMyCard && <img src={deleteIcon} alt="сердечко" className="card-icon card__delete"/>}
-        {!isMyCard && <img src={likeActive} alt="сердечко" className="card-icon card__like"/>}
+        {isMyCard && <button className="card-btn card__delete"><img src={deleteIcon} alt="сердечко"/></button>}
+        {!isMyCard && <button className="card-btn card__like"><img src={likeActive} alt="сердечко" /></button>}
       </div>
 
       <span className="card__duration">1ч 47м</span>

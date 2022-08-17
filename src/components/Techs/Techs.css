@@ -121,6 +121,10 @@
 }
 
 @media (max-width: 320px) { 
+  .techs-bg {
+    background-color: #202020;
+  }
+
   .techs__list {
     padding: 0 53px 70px;
   }

@@ -14,8 +14,10 @@ body {
 
 .container {
   width: 100%;
-  max-width: 1140px;
+  max-width: 1280px;
   margin: 0 auto;
+  padding: 0 70px;
+  box-sizing: border-box;
 }
 
 .section__title {
@@ -65,7 +67,8 @@ body {
 
 @media (max-width: 768px) {
   .container {
-    max-width: 708px;
+    padding: 0 30px;
+    max-width: 768px;
   }
   
   .section__title {
@@ -76,13 +79,14 @@ body {
 
 @media (max-width: 640px) {
   .container {
-    max-width: 600px;
+    padding: 0 18px;
+    max-width: 640px;
   }
 }
 
 @media (max-width: 425px) {
   .container {
-    max-width: 400px;
+    max-width: 425px;
   }
 
   .section__title {
@@ -92,13 +96,13 @@ body {
 
 @media (max-width: 375px) {
   .container {
-    max-width: 350px;
+    max-width: 375px;
   }
 }
 
 @media (max-width: 320px) {
   .container {
-    max-width: 292px;
+    max-width: 320px;
   }
   
   .section__title {
