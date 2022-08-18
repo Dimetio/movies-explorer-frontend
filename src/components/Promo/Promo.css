@@ -3,7 +3,8 @@
 }
 
 .promo {
-  padding: 70px 0 84px; 
+  padding-top: 70p;
+  padding-bottom: 84px; 
 }
 
 .promo__content {
@@ -67,7 +68,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 0 73px;
+    padding-bottom: 73px;
     max-width: 668px;
   }
 
@@ -97,7 +98,7 @@
 
 @media (max-width: 425px) {
   .promo {
-    padding: 0 0 30px;
+    padding-bottom: 30px;
   }
 
   .promo__content {
