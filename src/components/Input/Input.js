@@ -8,12 +8,13 @@ export default function Input({
   type,
   value,
   placeholder,
-  onChange
+  onChange,
+  disabled
   }) {
 
-    function handleChange(e) {
-      onChange({[name]: e.target.value})
-    } 
+  function handleChange(e) {
+    onChange({[name]: e.target.value})
+  } 
 
   return (
     <>
@@ -26,6 +27,7 @@ export default function Input({
           className={`input ${inputClass}`}
           value={value}
           onChange={handleChange}
+          disabled={disabled}
         />
       </label>
       <span className="input-error">Что-то пошло не так...</span>

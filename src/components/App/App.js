@@ -13,6 +13,8 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 
 import DisableComponentContext from '../../contexts/DisableComponent';
+import CurrentUserContext from "../../contexts/CurrentUserContext"
+
 
 function toggleClassBody(isOpen) {
   document.body.classList.toggle('overflow-hidden', isOpen);
@@ -43,57 +45,63 @@ function App() {
     toggleClassBody(!isOpen)
   }
 
+  function handleEditProfile({name, email}) {
+    setCurrentUser({ name, email })
+  }
+
   return (
-    <DisableComponentContext.Provider value={setDisableComponent}>
-      <div className="App">
-        <div className={`overlay ${isOpen && "overlay-show"}`}></div>
-        <Header 
-          isOpen={isOpen}
-          handleIconClick={handleIconClick}
-          headerDisable={disableComponent.header}
-        />
-          <Routes>
-            <Route 
-              path="/movies"
-              element={<Movies />}
-            />
+    <CurrentUserContext.Provider value={currentUser}>
+      <DisableComponentContext.Provider value={setDisableComponent}>
+        <div className="App">
+          <div className={`overlay ${isOpen && "overlay-show"}`}></div>
+          <Header 
+            isOpen={isOpen}
+            handleIconClick={handleIconClick}
+            headerDisable={disableComponent.header}
+          />
+            <Routes>
+              <Route 
+                path="/movies"
+                element={<Movies />}
+              />
 
-            <Route 
-              path="/saved-movies"
-              element={<SavedMovies />}
-            />
+              <Route 
+                path="/saved-movies"
+                element={<SavedMovies />}
+              />
 
-            <Route 
-              path="/profile"
-              element={<Profile />}
-            />
+              <Route 
+                path="/profile"
+                element={<Profile editProfile={handleEditProfile}/>}
+              />
 
-            <Route 
-              path="/signin"
-              element={<Login signin={handleSignin}/>}
-            />
+              <Route 
+                path="/signin"
+                element={<Login signin={handleSignin}/>}
+              />
 
-            <Route 
-              path="/signup"
-              element={<Register signup={handleSignup}/>}
-            />
+              <Route 
+                path="/signup"
+                element={<Register signup={handleSignup}/>}
+              />
 
-            <Route 
-              path="/404"
-              element={<NotFound />}
-            />
+              <Route 
+                path="/404"
+                element={<NotFound />}
+              />
 
-            <Route 
-              path="/"
-              element={<Main />}
-              exact
-            />
-          </Routes>
-        <Footer 
-          footerDisable={disableComponent.footer}
-        />
-      </div>
-    </DisableComponentContext.Provider>
+              <Route 
+                path="/"
+                element={<Main />}
+                exact
+              />
+            </Routes>
+          <Footer 
+            footerDisable={disableComponent.footer}
+          />
+        </div>
+      </DisableComponentContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
