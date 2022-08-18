@@ -1,0 +1,159 @@
+.about-project {
+  background-color: #202020;
+  padding-top: 110px;
+}
+
+.about-project__desc {
+  display: flex;
+  justify-content: space-between;
+  padding: 70px 0 110px;
+}
+
+.about-project__wrap {
+  max-width: 550px;
+}
+
+.about-project__wrap+.about-project__wrap {
+  margin-left: 40px;
+}
+
+.about-project__text {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  margin: 0 0 26px;
+}
+
+.about-project__text-small {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* calendar */
+.calendar {
+  display: flex;
+  padding-bottom: 110px;
+}
+
+.calendar__wrap {
+  width: 100%;
+}
+
+.calendar__wrap-short {
+  max-width: calc(100% / 5);
+}
+
+.calendar__week {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  height: 36px;
+}
+
+.calendar__week-backend {
+  background-color: #3DDC84;
+}
+
+.calendar__week-frontend {
+  color: #fff;
+  background-color: #303030;
+}
+
+.calendar__note {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #8B8B8B;
+}
+
+@media (max-width: 768px) {
+  .about-project {
+    padding-top: 90px;
+  }
+
+  .about-project__desc {
+    padding: 70px 20px 90px;
+  }
+
+  .about-project__text {
+    margin: 0 0 22px;
+  }
+
+  .about-project__text-small {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .calendar {
+    margin: 0 20px;
+    padding-bottom: 76px;
+  }
+
+  .calendar__wrap-short {
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-project {
+    padding-top: 70px;
+  }
+
+  .about-project__desc {
+    flex-direction: column;
+    padding: 60px 5px 58px;
+  }
+
+  .about-project__wrap+.about-project__wrap {
+    margin-left: 0;
+    margin-top: 56px;
+  }
+
+  .about-project__text {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0 16px;
+  }
+
+  .about-project__text-small {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .calendar {
+    margin: 0 5px;
+  }
+
+  .calendar__week {
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .calendar__wrap-short {
+    max-width: 100px;
+    min-width: 0;
+  }
+
+  .calendar__note {
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

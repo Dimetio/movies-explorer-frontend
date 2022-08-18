@@ -1,0 +1,131 @@
+.techs-bg {
+  background-color: #272727;
+}
+
+.techs {  
+  padding-top: 90px;
+}
+
+.techs__title {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin: 90px auto 22px;
+}
+
+.techs__subtitle {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin: 0 auto 100px;
+  max-width: 460px;
+}
+
+.techs__list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 100px;
+}
+
+.techs__list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.04em;
+  color: #fff;
+  width: 90px;
+  height: 60px;
+  background-color: #303030;
+  border-radius: 10px;
+}
+
+.techs__list-item+.techs__list-item {
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .techs__title {
+    margin: 80px auto 20px;
+  }
+
+  .techs__subtitle {
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 460px;
+    margin-bottom: 80px;
+  }
+
+  .techs__list {
+    padding-bottom: 90px;
+  }
+
+  .techs__list-item {
+    width: 84px;
+    height: 57px;
+  }
+}
+
+@media (max-width: 640px) {
+  .techs {
+    padding-top: 52px;
+  }
+
+  .techs .section__title {
+    border-bottom: 1px solid #000;
+  }
+  
+  .techs__title {
+    font-size: 30px;
+    line-height: 36px;
+    margin: 60px auto 24px;
+  }
+
+  .techs__subtitle {
+    font-size: 11px;
+    line-height: 16px;
+    margin: 0 14px 50px;
+  }
+
+  .techs__list {
+    flex-wrap: wrap;
+    padding: 0 70px 70px;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+
+  .techs__list-item {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .techs__list-item+.techs__list-item {
+    margin: 0;
+  }
+}
+
+@media (max-width: 320px) { 
+  .techs-bg {
+    background-color: #202020;
+  }
+
+  .techs__list {
+    padding: 0 53px 70px;
+  }
+}
