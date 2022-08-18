@@ -26,12 +26,13 @@
   padding-bottom: 19px;
 }
 
-.portfolio__list-item+.portfolio__list-item {
+.portfolio__list-link+.portfolio__list-link {
   border-top: 1px solid #424242;
   padding-top: 20px;
 }
 
 .portfolio__list-link {
+  display: block;
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -40,6 +41,10 @@
   letter-spacing: -0.04em;
   color: #FFFFFF;
   text-decoration: none;
+}
+
+.portfolio__list-link:hover {
+  opacity: .8;
 }
 
 .porfolio__list-img {

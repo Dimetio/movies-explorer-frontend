@@ -7,21 +7,28 @@ export default function Portfolio() {
     <section className="portfolio container">
       <h2 className="portfolio__title">Портфолио</h2>
 
+      
       <ul className="portfolio__list">
-        <li className="portfolio__list-item">
-          <a href="#" target="_blank" className="portfolio__list-link" rel="noreferrer">Статичный сайт</a>
-          <img className="porfolio__list-img" src={arrow} alt="стрелка" />
-        </li>
+        <a href="#" target="_blank" className="portfolio__list-link" rel="noreferrer">
+          <li className="portfolio__list-item">
+            Статичный сайт
+            <img className="porfolio__list-img" src={arrow} alt="стрелка" />
+          </li>
+        </a>
 
-        <li className="portfolio__list-item">
-          <a href="#" target="_blank" className="portfolio__list-link" rel="noreferrer">Адаптивный сайт</a>
-          <img className="porfolio__list-img" src={arrow} alt="стрелка"/>
-        </li>
+        <a href="#" target="_blank" className="portfolio__list-link" rel="noreferrer">
+          <li className="portfolio__list-item">
+            Адаптивный сайт
+            <img className="porfolio__list-img" src={arrow} alt="стрелка"/>
+          </li>
+        </a>
 
-        <li className="portfolio__list-item">
-          <a href="#" target="_blank" className="portfolio__list-link" rel="noreferrer">Одностраничное приложение</a>
-          <img className="porfolio__list-img" src={arrow} alt="стрелка"/>
-        </li>       
+        <a href="#" target="_blank" className="portfolio__list-link" rel="noreferrer">
+          <li className="portfolio__list-item">
+            Одностраничное приложение
+            <img className="porfolio__list-img" src={arrow} alt="стрелка"/>
+          </li>    
+        </a>   
       </ul>
     </section>
   )
