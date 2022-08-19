@@ -2,12 +2,17 @@ import { Link } from 'react-router-dom';
 
 import logo from '../../images/logo.svg';
 import './Header.css';
-import Guest from '../Guest/Guest';
-import AuthUser from '../AuthUser/AuthUser';
+import Guest from './Guest/Guest';
+import AuthUser from './AuthUser/AuthUser';
 import NavTab from '../NavTab/NavTab';
 import Burger from '../Burger/Burger';
 
-export default function Header({isOpen, handleIconClick, headerDisable}) {
+export default function Header({
+  isLoggedIn,
+  isOpen,
+  handleIconClick,
+  headerDisable
+}) {
   let isMain;
   
   window.location.pathname === '/' 
@@ -19,16 +24,16 @@ export default function Header({isOpen, handleIconClick, headerDisable}) {
         <div className="header container">
         <Link to="/"><img src={logo} alt="логотип" className="header__logo"/></Link>
 
-        <div className={`header__nav ${!isMain && "burger-nav"}`}>
-          {!isMain && <NavTab />}
+        <div className={`header__nav ${isLoggedIn && "burger-nav"}`}>
+          {isLoggedIn && <NavTab />}
 
-          {isMain 
-          ? <Guest />
-          : <AuthUser />
+          {isLoggedIn 
+          ? <AuthUser />
+          : <Guest />
           }
         </div>
 
-        {!isMain 
+        {isLoggedIn 
         ?
         <Burger 
           isOpen={isOpen}
