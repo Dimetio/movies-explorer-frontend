@@ -6,7 +6,7 @@ import DisableComponentContext from '../../contexts/DisableComponent';
 import './Profile.css';
 import Input from '../Input/Input';
 
-export default function Profile({editProfile}) {
+export default function Profile({editProfile, handleSignout}) {
   const currentUser = useContext(CurrentUserContext);
   const [isEdit, setIsEdit] = useState(false);
   const [inputsData, setInputsData] = useState({});
@@ -67,7 +67,13 @@ export default function Profile({editProfile}) {
           >{isEdit ? "Сохранить" : "Редактировать"}</button>
         </form>
         
-        <button type="button" className="profile__button profile__button-signout">Выйти из аккаунта</button>
+        <button 
+          type="button" 
+          className="profile__button profile__button-signout"
+          onClick={handleSignout}
+        >
+          Выйти из аккаунта
+        </button>
       </section>
     </>
   )
