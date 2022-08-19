@@ -1,7 +1,8 @@
 import './SearchForm.css';
 import icon from '../../images/search.svg';
 
-export default function SearchForm() {
+export default function SearchForm({handleShort, isShort}) {
+
   return (
     <form className="search-form container">
         <div className="search-from__wrap">
@@ -18,7 +19,12 @@ export default function SearchForm() {
 
         <div className="switch-wrap">
           <label className="switch">
-            <input type="checkbox" className="switch__input"/>
+            <input 
+              type="checkbox" 
+              className="switch__input" 
+              value={isShort ? 1 : 0} 
+              onClick={handleShort}
+            />
             <span className="switch__slider round"></span>
           </label>
           <p className="switch-text">Короткометражки</p>
