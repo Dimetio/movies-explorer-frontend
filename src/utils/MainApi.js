@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'https://api.ddubinin.nomoredomains.xyz';
 
 function checkResponce(res) {
   if(res.ok) {
@@ -38,19 +38,19 @@ export const signin = (email, password) => {
 
 export const signout = () => {
   return fetch(`${BASE_URL}/signout`, {
-    method: 'GET',
-    'Content-Type': 'application/json',
+    method: 'POST',
     credentials: 'include',
   })
   .then(checkResponce);
 };
 
-export const getToken = (token) => {
+export const getToken = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',
     },
+    withCredentials: true,
     credentials: 'include',
   })
   .then(checkResponce);
