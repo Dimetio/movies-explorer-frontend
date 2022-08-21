@@ -14,19 +14,16 @@ class MoviesApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  _headersWithJwt() {
-    return {authorization: `Bearer ${localStorage.getItem('jwt')}`, ...this.headers}
-  }
-
   getMovies() {
     return fetch(`${this.baseUrl}`, {
-      headers: this._headersWithJwt(),
+      method: 'GET',
+      headers: {...this.headers},
     })
       .then(this._getResponseData)
   }
 }
 
-const moviesApi = new MoviesApi({
+const beatfilmMoviesApi = new MoviesApi({
   baseUrl: "https://api.nomoreparties.co/beatfilm-movies",
   headers: {
     "Content-type": "application/json",
@@ -34,4 +31,4 @@ const moviesApi = new MoviesApi({
   }
 });
 
-export default moviesApi;
+export default beatfilmMoviesApi;
