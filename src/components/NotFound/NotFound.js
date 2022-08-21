@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom";
 import './NotFound.css'
 
 export default function NotFound() {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   function handleClick() {
+    console.log(navigate(-1))
     return navigate(-1);
   }
 
@@ -14,6 +15,7 @@ export default function NotFound() {
       <p className="not-found__text">Страница не найдена</p>
 
       <button
+        type="button"
         className="not-found__back"
         onClick={handleClick}
       >Назад</button>

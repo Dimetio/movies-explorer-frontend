@@ -35,8 +35,9 @@
   color: #4285F4;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
-.not-found__link:hover {
+.not-found__back:hover {
   opacity: .8;
 }
