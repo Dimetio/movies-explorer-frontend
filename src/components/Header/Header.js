@@ -4,8 +4,8 @@ import logo from '../../images/logo.svg';
 import './Header.css';
 import Guest from './Guest/Guest';
 import AuthUser from './AuthUser/AuthUser';
-import NavTab from '../NavTab/NavTab';
-import Burger from '../Burger/Burger';
+import NavTab from './NavTab/NavTab';
+import Burger from './Burger/Burger';
 
 export default function Header({
   isLoggedIn,

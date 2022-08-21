@@ -1,8 +1,8 @@
 import './Burger.css';
-import close from '../../images/close.svg'
-import burger from '../../images/burger.svg'
+import close from '../../../images/close.svg'
+import burger from '../../../images/burger.svg'
 import NavTab from '../NavTab/NavTab';
-import AuthUser from '../Header/AuthUser/AuthUser';
+import AuthUser from '../AuthUser/AuthUser';
 
 export default function Burger({isOpen, handleIconClick}) {
 
