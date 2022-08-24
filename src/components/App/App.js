@@ -1,7 +1,7 @@
-import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
+// components
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
@@ -11,9 +11,13 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
-
+import ProtectedRoute  from '../ProtectedRoute/ProtectedRoute';
+// contextes
 import DisableComponentContext from '../../contexts/DisableComponent';
 import CurrentUserContext from "../../contexts/CurrentUserContext"
+// api
+import beatfilmMoviesApi from '../../utils/MoviesApi';
+import * as mainApi from '../../utils/MainApi';
 
 
 function toggleClassBody(isOpen) {
@@ -21,40 +25,174 @@ function toggleClassBody(isOpen) {
 }
 
 function App() {
+  // флаг для бургера
   const [isOpen, setIsOpen] = useState(false);
   const [disableComponent, setDisableComponent] = useState({header: false, footer: false})
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({name: "Dmitry", email: "ddubinin.dmitry@mail.ru"})
+  const [currentUser, setCurrentUser] = useState({});
+  // массив фильмов
+  const [movies, setMovies] = useState([]);
+  // массив сохраненных фильмов
+  const [savedMovies, setSavedMovies] = useState([]);
+  // массив фильтрованных фильмов 
+  const [filterMovies, setFilterMovies] = useState([]);
+  // количество новых карточек
+  const [numberOfNew, setNumberOfNew] = useState(0);
+  // длина изначального массива фильмов
+  const [moviesListLength, setMovieListLength] = useState(0);
 
-  function handleSignup(name, email, password) {
-    setIsLoggedIn(true);
-    setCurrentUser({
-      name,
-      email
-    });
+  const width  = 1280
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // проверка токена
+  function tokenCheck() {
+    mainApi.getToken()
+      .then((data) => {
+        if (data) {
+          setIsLoggedIn(true);
+          setCurrentUser(data)
+          navigate(location.pathname)
+        } else {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch(err => console.log(err.message))
   }
 
-  function handleSignin({name, email}) {
-    setIsLoggedIn(true);
-    setCurrentUser({ name, email })
+  // регистрация
+  function handleSignup({name, email, password}) {
+    return mainApi.signup(name, email, password)
+      .then(() => {
+        navigate('/signin', { replace: true });
+      })
+      .catch(err => console.log(err.message))
   }
 
+  // вход
+  function handleSignin({email, password}) {
+    return mainApi.signin(email, password)
+      .then(() => {
+        tokenCheck();
+        navigate('/movies', { replace: true })            
+      })
+      .catch(err => console.log(err.message)) 
+  }
+
+  // редактрование профиля
+  function handleEditProfile({name, email}) {
+    return mainApi.updateProfile(name, email)
+      .then((data) => {
+        setCurrentUser(data)
+      })
+      .catch((err) => console.log(err.message))
+  }
+
+  // выход
+  function handleSignout() {
+    return mainApi.signout()
+      .then(() => {
+        setCurrentUser({});
+        localStorage.removeItem('movies');
+        navigate('/signin', { replace: true });  
+      })
+      .catch(err => console.log(err.message))
+  }
+
+  // бургер/крестик
   function handleIconClick() {
     setIsOpen(!isOpen);
 
     toggleClassBody(!isOpen)
   }
 
-  function handleEditProfile({name, email}) {
-    setCurrentUser({ name, email })
+  // сохраняю или удаляю фильм
+  function handleMovieIconClick(movie) {
+    const like = savedMovies.some((i) => {
+      return i.movieId === movie.id
+    });
+
+    if (!like) {
+      handleSaveMovie(movie);
+    } else {
+      const dislike = savedMovies.find((i) => i.movieId === movie.id)
+      handleDeleteMovie(dislike);
+    }
   }
+
+  function handleSaveMovie(movie) {
+    return mainApi.saveMovie(movie)
+      .then((newMovie) => {
+        setSavedMovies([...savedMovies, newMovie]);
+        newMovie.isLiked = true;
+        console.log('Фильм добавил');
+      })
+      .catch(err => console.log(err.message))
+  }
+
+  function handleDeleteMovie(movie) {
+    return mainApi.deleteMovie(movie)
+      .then(() => {
+        setSavedMovies(savedMovies.filter((i) => i._id !== movie._id));
+        console.log('Удалили фильм')
+      })
+  }
+
+  function handleSearch(value) {
+    const filterMovie = movies.filter((item) => {
+      console.log(value)
+    })
+  }
+
+ // кнопка Ещё
+  function moreMovies() {
+    setMovieListLength(moviesListLength + numberOfNew);
+  }
+
+  // меняю вывод максимальное количество карточек
+  useEffect(() => {
+    if(width >= 1200) {
+      setNumberOfNew(3);
+      setMovieListLength(12);
+    } else if(width >= 641 && width <= 1279) {
+      setNumberOfNew(2);
+      setMovieListLength(8);
+    } else if(width <= 640) {
+      setNumberOfNew(1);
+      setMovieListLength(5);
+    }
+  }, [width]);
+
+  useEffect(() => {
+    tokenCheck();
+  }, [])
+
+  // при входе делаю запрос и сохраняю фильмы в localStorage
+  useEffect(() => {
+    if(isLoggedIn) {
+      Promise.all([beatfilmMoviesApi.getMovies(), mainApi.getSavedMovies()])
+      .then(([moviesList, savedMoviesList]) => {
+        if(moviesList) {
+          localStorage.setItem('movies', JSON.stringify(moviesList));
+          const localMovies = JSON.parse(localStorage.getItem('movies'));
+          setMovies(localMovies);
+        }
+        
+        if(savedMoviesList) {
+          setSavedMovies(savedMoviesList);
+        }
+      })
+      .catch((err) => console.log(err))
+    }   
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <DisableComponentContext.Provider value={setDisableComponent}>
         <div className="App">
           <div className={`overlay ${isOpen && "overlay-show"}`}></div>
-          <Header 
+          <Header
+            isLoggedIn={isLoggedIn}
             isOpen={isOpen}
             handleIconClick={handleIconClick}
             headerDisable={disableComponent.header}
@@ -62,17 +200,47 @@ function App() {
             <Routes>
               <Route 
                 path="/movies"
-                element={<Movies />}
+                element={
+                  <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                  >
+                    <Movies
+                      movies={movies}
+                      handleMovieIconClick={handleMovieIconClick}
+                      moviesListLength={moviesListLength}
+                      moreMovies={moreMovies}
+                      handleSearch={handleSearch}
+                    />
+                  </ProtectedRoute>
+                }
               />
 
               <Route 
                 path="/saved-movies"
-                element={<SavedMovies />}
+                element={
+                  <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                  >
+                    <SavedMovies
+                      movies={savedMovies}
+                      handleMovieIconClick={handleDeleteMovie}
+                    />
+                  </ProtectedRoute>                
+                }
               />
 
               <Route 
                 path="/profile"
-                element={<Profile editProfile={handleEditProfile}/>}
+                element={
+                  <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                  >
+                    <Profile 
+                      editProfile={handleEditProfile}
+                      handleSignout={handleSignout}
+                  />
+                  </ProtectedRoute>
+                }                
               />
 
               <Route 
@@ -86,14 +254,14 @@ function App() {
               />
 
               <Route 
-                path="/404"
-                element={<NotFound />}
-              />
-
-              <Route 
                 path="/"
                 element={<Main />}
                 exact
+              />
+
+              <Route 
+                path="*"
+                element={<NotFound />}
               />
             </Routes>
           <Footer 
