@@ -1,28 +1,51 @@
+import {useState} from 'react';
+import { useLocation } from 'react-router-dom';
+
 import './MoviesCard.css';
-import cardPhoto from '../../images/phoro-1.jpg';
 import like from '../../images/like.svg';
 import likeActive from '../../images/like-active.svg';
 import deleteIcon from '../../images/delete.svg';
 
-export default function MoviesCard() {
-  let isMyCard;
+export default function MoviesCard({movie, handleMovieIconClick}) {
+  const location = useLocation();
+  const [isLike, setIsLike] = useState(false);
 
-  window.location.pathname === '/saved-movies' 
-  ? isMyCard = true 
-  : isMyCard = false;
+  function getDuration(duration) {
+    return `${Math.floor(duration / 60)}ч ${duration % 60}м`;
+  }
+   
+  const isMyCard = location.pathname === '/saved-movies' ? true : false;
 
   return (
     <div className="card">
-      <img src={cardPhoto} alt="картинка" className="card__img"/>
+      <a href={movie.trailerLink} target="_blank" rel="noreferrer">
+        <img 
+          src={isMyCard ? movie.image : `https://api.nomoreparties.co${movie.image.url}`} 
+          alt={movie.nameRU} 
+          className="card__img"
+        />
+      </a>
 
       <div className="card-wrap">
-        <p className="card__title">33 слова о дизайне</p>
+        <p className="card__title">{movie.nameRU}</p>
 
-        {isMyCard && <button className="card-btn card__delete"><img src={deleteIcon} alt="сердечко"/></button>}
-        {!isMyCard && <button className="card-btn card__like"><img src={likeActive} alt="сердечко" /></button>}
+        <button 
+          className={`card-btn ${isMyCard ? 'card__delete' : 'card__like'}`}
+          onClick={() => {
+              handleMovieIconClick(movie);
+              setIsLike(!isLike);
+            }
+          }
+        >
+          <img src={
+            isMyCard ? 
+            deleteIcon : 
+            isLike ? likeActive : like
+          } alt={isMyCard ? 'крестик' : 'сердечко'}/>
+        </button>
       </div>
 
-      <span className="card__duration">1ч 47м</span>
+      <span className="card__duration">{getDuration(movie.duration)}</span>
     </div>
   )
 }
