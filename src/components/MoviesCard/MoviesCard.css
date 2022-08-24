@@ -7,10 +7,6 @@
   border-radius: 6px;
 }
 
-.card:hover {
-  cursor: pointer;
-}
-
 .card-wrap {
   display: flex;
   align-items: center;
@@ -42,6 +38,12 @@
   border: none;
   background-color: transparent;
   padding: 0;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.card-btn:hover {
+  transform: scale(1.1);
 }
 
 .card__duration {
