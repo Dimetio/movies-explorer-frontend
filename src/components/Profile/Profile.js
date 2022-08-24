@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import CurrentUserContext from "../../contexts/CurrentUserContext"
 import DisableComponentContext from '../../contexts/DisableComponent';
@@ -9,15 +10,24 @@ import Input from '../Input/Input';
 export default function Profile({editProfile, handleSignout}) {
   const currentUser = useContext(CurrentUserContext);
   const [isEdit, setIsEdit] = useState(false);
-  const [inputsData, setInputsData] = useState({});
+  const [inputsData, setInputsData] = useState({
+    name: currentUser.name, 
+    email: currentUser.email
+  });
 
   function onChangeInput(inputData) {
     setInputsData({ ...inputsData, ...inputData });
   }
 
-  function handleEditProfile() {
-    setIsEdit(!isEdit);
-    editProfile(currentUser);
+  function handleEditProfile(e) {
+    e.preventDefault();
+    setIsEdit(true);
+  }
+
+  function handleSaveProfile(e) {
+    e.preventDefault();
+    setIsEdit(false);
+    editProfile(inputsData);
   }
 
   const disableComponent = useContext(DisableComponentContext);
@@ -34,7 +44,7 @@ export default function Profile({editProfile, handleSignout}) {
     <>
       <section className="profile">
         <form className="profile-form">
-          <h2 className="profile-form__title">{`Привет, ${currentUser.name}`}</h2>
+          <h2 className="profile-form__title">{`Привет, ${currentUser.name || inputsData.name}`}</h2>
           <div className="profile-form__inputs">
             <Input 
               inputTitle="Имя"
@@ -61,19 +71,18 @@ export default function Profile({editProfile, handleSignout}) {
           </div>
 
           <button 
-            type="button" 
+            type={isEdit ? "submit" : "button"} 
             className="profile__button profile__button-edit"
-            onClick={handleEditProfile}
+            onClick={isEdit ? handleSaveProfile : handleEditProfile}
           >{isEdit ? "Сохранить" : "Редактировать"}</button>
         </form>
         
-        <button 
-          type="button" 
+        <p
           className="profile__button profile__button-signout"
           onClick={handleSignout}
         >
           Выйти из аккаунта
-        </button>
+        </p>
       </section>
     </>
   )
