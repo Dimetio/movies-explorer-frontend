@@ -1,6 +1,6 @@
 export const BASE_URL = 'https://api.ddubinin.nomoredomains.xyz';
 
-function checkResponce(res) {
+function checkResponse(res) {
   if(res.ok) {
     return res.json();
   }
@@ -21,7 +21,7 @@ export const signup = (name, email, password) => {
     credentials: 'include',
     body: JSON.stringify({ name, email, password }),
   })
-  .then(checkResponce);
+  .then(checkResponse);
 };
 
 export const signin = (email, password) => {
@@ -33,15 +33,16 @@ export const signin = (email, password) => {
     credentials: 'include',
     body: JSON.stringify({ password, email }),
   })
-  .then(checkResponce);
+  .then(checkResponse);
 };
 
 export const signout = () => {
   return fetch(`${BASE_URL}/signout`, {
     method: 'POST',
+    withCredentials: true,
     credentials: 'include',
   })
-  .then(checkResponce);
+  .then(checkResponse);
 };
 
 export const getToken = () => {
@@ -53,5 +54,69 @@ export const getToken = () => {
     withCredentials: true,
     credentials: 'include',
   })
-  .then(checkResponce);
+  .then(checkResponse);
 };
+
+export const updateProfile = (name, email) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true,
+    credentials: 'include',
+    body: JSON.stringify({ name, email })
+  })
+  .then(checkResponse);
+}
+
+export const getSavedMovies = () => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true,
+    credentials: 'include',
+  })
+  .then(checkResponse);
+}
+
+export const saveMovie = (movie) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true,
+    credentials: 'include',
+    body: JSON.stringify({
+      country: movie.country ?? '1',
+      director: movie.director,         
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co${movie.image.url}`,
+      trailerLink: movie.trailerLink
+        ? movie.trailerLink
+        : `https://www.youtube.com/results?search_query=трейлер+${movie.nameRU}`,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN ?? movie.nameRU,  
+    })
+  })
+  .then(checkResponse);
+}
+
+export const deleteMovie = (movie) => {
+  return fetch(`${BASE_URL}/movies/${movie._id}`, {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true,
+    credentials: 'include',
+  })
+  .then(checkResponse);
+}
