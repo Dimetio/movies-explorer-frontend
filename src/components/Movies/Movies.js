@@ -9,15 +9,22 @@ export default function Movies({
   handleMovieIconClick,
   moviesListLength,
   moreMovies,
+  handleSearch,
+  durationSwitch,
 }) {
   const [isShort, setIsShort] = useState(false);
 
   function handleShort() {
     setIsShort(!isShort);
+    durationSwitch(!isShort);
   }
   return (
     <>
-      <SearchForm handleShort={handleShort} isShort={isShort}/>
+      <SearchForm 
+        handleShort={handleShort}
+        isShort={isShort}
+        handleSearch={handleSearch}
+      />
       <MoviesCardList 
         movies={movies}
         handleMovieIconClick={handleMovieIconClick}

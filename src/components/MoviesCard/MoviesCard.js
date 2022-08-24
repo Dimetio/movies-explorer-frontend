@@ -6,7 +6,10 @@ import like from '../../images/like.svg';
 import likeActive from '../../images/like-active.svg';
 import deleteIcon from '../../images/delete.svg';
 
-export default function MoviesCard({movie, handleMovieIconClick}) {
+export default function MoviesCard({
+  movie,
+  handleMovieIconClick,
+}) {
   const location = useLocation();
   const [isLike, setIsLike] = useState(false);
 
@@ -38,12 +41,11 @@ export default function MoviesCard({movie, handleMovieIconClick}) {
           }
         >
           <img src={
-            isMyCard ? 
-            deleteIcon : 
+            isMyCard ? deleteIcon : 
             isLike ? likeActive : like
           } alt={isMyCard ? 'крестик' : 'сердечко'}/>
         </button>
-      </div>
+      </div>      
 
       <span className="card__duration">{getDuration(movie.duration)}</span>
     </div>

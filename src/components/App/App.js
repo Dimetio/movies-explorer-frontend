@@ -36,12 +36,13 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   // массив фильтрованных фильмов 
   const [filterMovies, setFilterMovies] = useState([]);
+  const [filterSavedMovies, setFilterSavedMovies] = useState([]);
   // количество новых карточек
   const [numberOfNew, setNumberOfNew] = useState(0);
   // длина изначального массива фильмов
   const [moviesListLength, setMovieListLength] = useState(0);
 
-  const width  = 1280
+  const [width, setWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -138,10 +139,72 @@ function App() {
       })
   }
 
-  function handleSearch(value) {
+  // поиск по фильмам
+  function handleSearchMovies(value) {
     const filterMovie = movies.filter((item) => {
-      console.log(value)
-    })
+      const values = value.toLowerCase();
+      const nameEN = item.nameEN;
+      const nameRU = item.nameRU;
+      // не пустое значение и нашел EN или RU
+      return (
+        (values !== '' && 
+          (
+            (nameEN && nameEN.toLowerCase().includes(values)) || 
+            (nameRU && nameRU.toLowerCase().includes(values))
+          )
+        ) ? item : null
+      )
+    });
+    localStorage.setItem('filtered-movies', JSON.stringify(filterMovie));
+    setFilterMovies(filterMovie);
+  }
+
+  // поиск по сохраненным фильмам
+  function handleSearchSavedMovies(value) {
+    const filterSavedMovie = savedMovies.filter((item) => {
+      const values = value.toLowerCase();
+      const nameEN = item.nameEN;
+      const nameRU = item.nameRU;
+      // не пустое значение и нашел EN или RU
+      return (
+        (values !== '' && 
+          (
+            (nameEN && nameEN.toLowerCase().includes(values)) || 
+            (nameRU && nameRU.toLowerCase().includes(values))
+          )
+        ) ? item : null
+      )
+    });
+    localStorage.setItem('filtered-saved-movies', JSON.stringify(filterSavedMovie));
+    setFilterSavedMovies(filterSavedMovie.length > 0 ? filterSavedMovie : savedMovies);
+  }
+
+  // сортировка по длине фильмов
+  function durationSwitch(checked) {
+    const filterMovies = JSON.parse(localStorage.getItem('filtered-movies'));
+
+    if(checked && filterMovies) {
+      const shortMovies = filterMovies.filter((item) => item.duration <= 40);
+      setFilterMovies(shortMovies);
+    } else {
+      setFilterMovies(filterMovies);
+    }
+  }
+
+  // сортировка по длине сохраненных фильмов
+  function durationSavedSwitch(checked) {
+    const filterSavedMovies = JSON.parse(localStorage.getItem('filtered-saved-movies'));
+    if(checked && filterSavedMovies) {
+      const shortMovies = filterSavedMovies.filter((item) => item.duration <= 40);
+      setFilterSavedMovies(shortMovies);
+    } else {
+      setFilterSavedMovies(filterSavedMovies);
+    }
+  }
+
+  // обновляю стейт ширины экрана
+  function updateWindowWidth() {
+    setWidth(window.innerWidth);
   }
 
  // кнопка Ещё
@@ -163,6 +226,12 @@ function App() {
     }
   }, [width]);
 
+  // обрабытываю событие resize окна браузера
+  useEffect(() => {
+    window.addEventListener('resize', updateWindowWidth);
+    return () => window.removeEventListener('resize', updateWindowWidth)
+  });
+
   useEffect(() => {
     tokenCheck();
   }, [])
@@ -180,6 +249,7 @@ function App() {
         
         if(savedMoviesList) {
           setSavedMovies(savedMoviesList);
+          setFilterSavedMovies(savedMoviesList)
         }
       })
       .catch((err) => console.log(err))
@@ -205,11 +275,12 @@ function App() {
                     isLoggedIn={isLoggedIn}
                   >
                     <Movies
-                      movies={movies}
+                      movies={filterMovies}
                       handleMovieIconClick={handleMovieIconClick}
                       moviesListLength={moviesListLength}
                       moreMovies={moreMovies}
-                      handleSearch={handleSearch}
+                      handleSearch={handleSearchMovies}
+                      durationSwitch={durationSwitch}
                     />
                   </ProtectedRoute>
                 }
@@ -222,8 +293,10 @@ function App() {
                     isLoggedIn={isLoggedIn}
                   >
                     <SavedMovies
-                      movies={savedMovies}
+                      movies={filterSavedMovies}
                       handleMovieIconClick={handleDeleteMovie}
+                      handleSearch={handleSearchSavedMovies}
+                      durationSwitch={durationSavedSwitch}
                     />
                   </ProtectedRoute>                
                 }
