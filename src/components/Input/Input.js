@@ -8,13 +8,15 @@ export default function Input({
   type,
   value,
   placeholder,
-  onChange,
-  disabled
+  required,
+  minLength,
+  maxLength,
+  handleChange,
   }) {
 
-  function handleChange(e) {
-    onChange({[name]: e.target.value})
-  } 
+  // function handleChange(e) {
+  //   onChange({[name]: e.target.value})
+  // } 
 
   return (
     <>
@@ -25,9 +27,11 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           className={`input ${inputClass}`}
-          value={value}
+          value={value || ""}
+          required={required}
           onChange={handleChange}
-          disabled={disabled}
+          minLength={minLength}
+          maxLength={maxLength}
         />
       </label>
       <span className="input-error">Что-то пошло не так...</span>

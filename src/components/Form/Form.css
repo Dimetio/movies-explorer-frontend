@@ -31,7 +31,7 @@
   margin: 0 0 40px;
 }
 
-.form__boutton {
+.form__button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,9 +51,18 @@
   margin: 134px 0 16px;
 }
 
-.form__boutton:hover {
+.form__button:hover {
   cursor: pointer;
   opacity: .8;
+}
+
+.form__button_inactive {
+  opacity: .8;
+  background-color: #303030;
+}
+
+.form__button_inactive:hover {
+  cursor: auto;
 }
 
 .form__question {

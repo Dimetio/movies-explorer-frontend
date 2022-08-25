@@ -1,11 +1,20 @@
 import { useContext, useEffect } from 'react';
 import DisableComponentContext from '../../contexts/DisableComponent';
+import useFormAndValidation from '../../hook/useFormAndValidation';
 
 import './Login.css';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 
 export default function Login({signin}) {
+  const {values, setValues, handleChange, isValid, errors, resetForm} = useFormAndValidation();
+  
+  function handleSubmit(e) {
+    e.preventDefault();
+    signin(values.email, values.password)
+    console.log(values)
+  }
+
   const disableComponent = useContext(DisableComponentContext);
 
   useEffect(()=> {
@@ -24,30 +33,30 @@ export default function Login({signin}) {
         question="Ещё не Зарегистрированы?"
         linkText="Регистрироваться"
         url="/signup"
-        onSubmit={signin}
+        handleSubmit={handleSubmit}
+        isValid={isValid}
       >
-        {({onChangeInput, inputsData}) => 
-          <>
-            <Input 
-              inputTitle="E-mail"
-              name="email"
-              type="email"
-              placeholder="Введите E-mail"
-              value={inputsData.email || ""}
-              inputClass="input-border"
-              onChange={onChangeInput}
-            />
+        <Input 
+          inputTitle="E-mail"
+          name="email"
+          type="email"
+          placeholder="Введите E-mail"
+          value={values.email}
+          inputClass="input-border"
+          handleChange={handleChange}
+          required={true}
+        />
 
-            <Input 
-              inputTitle="Пароль"
-              name="password"
-              type="password"
-              placeholder="Введите пароль"
-              inputClass="input-border"
-              onChange={onChangeInput}
-            />
-          </>
-        }
+        <Input 
+          inputTitle="Пароль"
+          name="password"
+          type="password"
+          placeholder="Введите пароль"
+          inputClass="input-border"
+          value={values.password}
+          handleChange={handleChange}
+          required={true}
+        />
         
       </Form>
     </section>

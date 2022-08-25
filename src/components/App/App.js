@@ -62,7 +62,7 @@ function App() {
   }
 
   // регистрация
-  function handleSignup({name, email, password}) {
+  function handleSignup(name, email, password) {
     return mainApi.signup(name, email, password)
       .then(() => {
         navigate('/signin', { replace: true });
@@ -71,10 +71,9 @@ function App() {
   }
 
   // вход
-  function handleSignin({email, password}) {
+  function handleSignin(email, password) {
     return mainApi.signin(email, password)
       .then(() => {
-        tokenCheck();
         navigate('/movies', { replace: true })            
       })
       .catch(err => console.log(err.message)) 
@@ -95,6 +94,10 @@ function App() {
       .then(() => {
         setCurrentUser({});
         localStorage.removeItem('movies');
+        localStorage.removeItem('filtered-movies');
+        localStorage.removeItem('filtered-saved-movies');
+        localStorage.removeItem('local-check');
+        localStorage.removeItem('local-search-value');
         navigate('/signin', { replace: true });  
       })
       .catch(err => console.log(err.message))
@@ -239,7 +242,7 @@ function App() {
 
   // при входе делаю запрос и сохраняю фильмы в localStorage
   useEffect(() => {
-    if(isLoggedIn) {
+    if(isLoggedIn) {      
       Promise.all([beatfilmMoviesApi.getMovies(), mainApi.getSavedMovies()])
       .then(([moviesList, savedMoviesList]) => {
         if(moviesList) {
