@@ -194,6 +194,7 @@ function App() {
   // сортировка по длине сохраненных фильмов
   function durationSavedSwitch(checked) {
     const filterSavedMovies = JSON.parse(localStorage.getItem('filtered-saved-movies'));
+
     if(checked && filterSavedMovies) {
       const shortMovies = filterSavedMovies.filter((item) => item.duration <= 40);
       setFilterSavedMovies(shortMovies);

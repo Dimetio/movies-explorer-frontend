@@ -13,11 +13,12 @@ export default function Movies({
   durationSwitch,
 }) {
   const [isShort, setIsShort] = useState(false);
-
+  
   function handleShort() {
     setIsShort(!isShort);
     durationSwitch(!isShort);
   }
+
   return (
     <>
       <SearchForm 

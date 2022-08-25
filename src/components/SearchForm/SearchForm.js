@@ -8,7 +8,8 @@ export default function SearchForm({
   isShort,
   handleSearch,
 }) {
-  const [value, setValue] = useState('');
+  const localStorageValue = localStorage.getItem('local-search-value');
+  const [value, setValue] = useState(localStorageValue ?? '');
   const location = useLocation();
 
   function handleChange(e) {
@@ -20,9 +21,19 @@ export default function SearchForm({
     handleSearch(value);
   }
 
-  // useEffect(()=> {
-  //   setValue('')
-  // }, [location])
+  // по переходу в сохраненки - сбрасываю поиск
+  useEffect(() => {
+    if(location.pathname === '/saved-movies') {
+      handleSearch(value);
+      setValue('');
+    }
+  }, [location])
+
+  useEffect(() => {
+    if(location.pathname === '/movies') {
+      localStorage.setItem('local-search-value', value);
+    }    
+  }, [value])
 
   return (
     <form 
@@ -54,7 +65,7 @@ export default function SearchForm({
             <input 
               type="checkbox" 
               className="switch__input" 
-              value={isShort ? 1 : 0} 
+              value={isShort} 
               onClick={handleShort}
             />
             <span className="switch__slider round"></span>

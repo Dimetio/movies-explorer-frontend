@@ -1,6 +1,5 @@
 import {useState} from 'react';
 
-
 import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -17,6 +16,7 @@ export default function SavedMovies({
     setIsShort(!isShort);
     durationSwitch(!isShort);
   }
+  // ловлю баг с переключателем обратно, массив пустой
   return (
     <>
       <SearchForm 
