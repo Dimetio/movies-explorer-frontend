@@ -32,11 +32,17 @@ export default function Movies({
         moviesListLength={moviesListLength}
       />
 
-      <button 
-        type="button" 
-        className="movies-list__more"
-        onClick={moreMovies}
-      >Ещё</button>
+      { 
+        movies.length === 0 ? 
+        <p className="movies-pretext">Введите название фильма в поисковой строке</p> :
+        movies.length > moviesListLength &&         
+        <button 
+          type="button" 
+          className="movies-list__more"
+          onClick={moreMovies}
+        >Ещё</button>
+      }
+      
     </>
     
   )
