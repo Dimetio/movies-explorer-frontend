@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
@@ -14,10 +14,16 @@ export default function Movies({
 }) {
   const [isShort, setIsShort] = useState(false);
   
-  function handleShort() {
+  function handleShort(e) {
     setIsShort(!isShort);
     durationSwitch(!isShort);
+    localStorage.setItem('local-check', !isShort);
   }
+
+  useEffect(() => {    
+    const localCheck = JSON.parse(localStorage.getItem('local-check'));
+    setIsShort(localCheck ?? false);
+  }, []);
 
   return (
     <>

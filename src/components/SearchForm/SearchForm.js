@@ -33,7 +33,7 @@ export default function SearchForm({
     if(location.pathname === '/movies') {
       localStorage.setItem('local-search-value', value);
     }    
-  }, [value])
+  }, [location ,value]);
 
   return (
     <form 
@@ -64,9 +64,9 @@ export default function SearchForm({
           <label className="switch">
             <input 
               type="checkbox" 
-              className="switch__input" 
-              value={isShort} 
-              onClick={handleShort}
+              className="switch__input"
+              checked={isShort} 
+              onChange={handleShort}
             />
             <span className="switch__slider round"></span>
           </label>
