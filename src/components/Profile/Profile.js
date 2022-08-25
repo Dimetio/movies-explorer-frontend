@@ -49,7 +49,7 @@ export default function Profile({editProfile, handleSignout}) {
               inputClass="input-profile"
               disabled={!isEdit}
               handleChange={handleChange}
-              value={values.name }
+              value={values.name}required={true}
             />
             <Input 
               inputTitle="E-mail"
@@ -61,6 +61,7 @@ export default function Profile({editProfile, handleSignout}) {
               disabled={!isEdit}
               handleChange={handleChange}
               value={values.email}
+              required={true}
             />
           </div>
 
@@ -68,7 +69,7 @@ export default function Profile({editProfile, handleSignout}) {
             type={isEdit ? "submit" : "button"} 
             className={`profile__button profile__button-edit ${isEdit && !isValid && "profile__button_inactive"}`}
             onClick={isEdit ? handleSaveProfile : handleEditProfile}
-            disabled={(isEdit && !isValid) ?? false}
+            disabled={(isEdit && !isValid) ? true : false}
           >{isEdit ? "Сохранить" : "Редактировать"}</button>
         </form>
         
