@@ -9,21 +9,21 @@ export default function Portfolio() {
 
       
       <ul className="portfolio__list">
-        <a href="#" target="_blank" className="portfolio__list-link" rel="noreferrer">
+        <a href="https://github.com/Dimetio/russian-travel" target="_blank" className="portfolio__list-link" rel="noreferrer">
           <li className="portfolio__list-item">
             Статичный сайт
             <img className="porfolio__list-img" src={arrow} alt="стрелка" />
           </li>
         </a>
 
-        <a href="#" target="_blank" className="portfolio__list-link" rel="noreferrer">
+        <a href="https://github.com/Dimetio/mesto-react" target="_blank" className="portfolio__list-link" rel="noreferrer">
           <li className="portfolio__list-item">
             Адаптивный сайт
             <img className="porfolio__list-img" src={arrow} alt="стрелка"/>
           </li>
         </a>
 
-        <a href="#" target="_blank" className="portfolio__list-link" rel="noreferrer">
+        <a href="https://github.com/Dimetio/react-mesto-api-full" target="_blank" className="portfolio__list-link" rel="noreferrer">
           <li className="portfolio__list-item">
             Одностраничное приложение
             <img className="porfolio__list-img" src={arrow} alt="стрелка"/>
