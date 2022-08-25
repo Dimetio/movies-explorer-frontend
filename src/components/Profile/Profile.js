@@ -1,23 +1,15 @@
 import { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
 import CurrentUserContext from "../../contexts/CurrentUserContext"
 import DisableComponentContext from '../../contexts/DisableComponent';
+import useFormAndValidation from '../../hook/useFormAndValidation';
 
 import './Profile.css';
 import Input from '../Input/Input';
 
 export default function Profile({editProfile, handleSignout}) {
+  const {values, setValues, handleChange, isValid, errors, resetForm} = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
   const [isEdit, setIsEdit] = useState(false);
-  const [inputsData, setInputsData] = useState({
-    name: currentUser.name, 
-    email: currentUser.email
-  });
-
-  function onChangeInput(inputData) {
-    setInputsData({ ...inputsData, ...inputData });
-  }
 
   function handleEditProfile(e) {
     e.preventDefault();
@@ -27,12 +19,14 @@ export default function Profile({editProfile, handleSignout}) {
   function handleSaveProfile(e) {
     e.preventDefault();
     setIsEdit(false);
-    editProfile(inputsData);
+    editProfile(values);
   }
 
   const disableComponent = useContext(DisableComponentContext);
 
   useEffect(()=> {
+    setValues({name: currentUser.name, email: currentUser.email});
+
     disableComponent({footer: true, ...disableComponent});
 
     return () => {
@@ -44,7 +38,7 @@ export default function Profile({editProfile, handleSignout}) {
     <>
       <section className="profile">
         <form className="profile-form">
-          <h2 className="profile-form__title">{`Привет, ${currentUser.name || inputsData.name}`}</h2>
+          <h2 className="profile-form__title">{`Привет, ${values.name}`}</h2>
           <div className="profile-form__inputs">
             <Input 
               inputTitle="Имя"
@@ -54,8 +48,8 @@ export default function Profile({editProfile, handleSignout}) {
               labelClass="label-profile input-border"
               inputClass="input-profile"
               disabled={!isEdit}
-              onChange={onChangeInput}
-              value={isEdit ? inputsData.name : inputsData.name || currentUser.name}
+              handleChange={handleChange}
+              value={values.name }
             />
             <Input 
               inputTitle="E-mail"
@@ -65,15 +59,16 @@ export default function Profile({editProfile, handleSignout}) {
               labelClass="label-profile"
               inputClass="input-profile"
               disabled={!isEdit}
-              onChange={onChangeInput}
-              value={isEdit ? inputsData.email : inputsData.email || currentUser.email}
+              handleChange={handleChange}
+              value={values.email}
             />
           </div>
 
           <button 
             type={isEdit ? "submit" : "button"} 
-            className="profile__button profile__button-edit"
+            className={`profile__button profile__button-edit ${isEdit && !isValid && "profile__button_inactive"}`}
             onClick={isEdit ? handleSaveProfile : handleEditProfile}
+            disabled={(isEdit && !isValid) ?? false}
           >{isEdit ? "Сохранить" : "Редактировать"}</button>
         </form>
         

@@ -12,6 +12,7 @@ export default function Input({
   minLength,
   maxLength,
   handleChange,
+  disabled,
   }) {
 
   // function handleChange(e) {
@@ -32,6 +33,7 @@ export default function Input({
           onChange={handleChange}
           minLength={minLength}
           maxLength={maxLength}
+          disabled={disabled}
         />
       </label>
       <span className="input-error">Что-то пошло не так...</span>

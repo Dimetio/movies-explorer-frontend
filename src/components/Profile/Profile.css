@@ -41,6 +41,14 @@
   opacity: .8;
 }
 
+.profile__button_inactive {
+  opacity: .5;
+}
+
+.profile__button_inactive:hover {
+  cursor: auto;
+}
+
 .profile__button-edit {
   font-weight: 400;
   color: #FFFFFF;
