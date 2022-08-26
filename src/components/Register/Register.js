@@ -7,7 +7,7 @@ import Input from '../Input/Input';
 import useFormAndValidation from '../../hook/useFormAndValidation';
 
 export default function Register({signup}) {
-  const {values, setValues, handleChange, isValid, errors, resetForm} = useFormAndValidation();
+  const {values, handleChange, isValid, errors } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();

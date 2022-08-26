@@ -25,6 +25,7 @@ export default function Profile({editProfile, handleSignout}) {
   const disableComponent = useContext(DisableComponentContext);
 
   useEffect(()=> {
+    // заполняю поля контекста юзера
     setValues({name: currentUser.name, email: currentUser.email});
 
     disableComponent({footer: true, ...disableComponent});
@@ -74,7 +75,7 @@ export default function Profile({editProfile, handleSignout}) {
             type={isEdit ? "submit" : "button"} 
             className={`profile__button profile__button-edit ${isEdit && !isValid && "profile__button_inactive"}`}
             onClick={isEdit ? handleSaveProfile : handleEditProfile}
-            disabled={(isEdit && !isValid) ? true : false}
+            disabled={isEdit && !isValid}
           >{isEdit ? "Сохранить" : "Редактировать"}</button>
         </form>
         

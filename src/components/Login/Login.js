@@ -7,7 +7,7 @@ import Form from '../Form/Form';
 import Input from '../Input/Input';
 
 export default function Login({signin}) {
-  const {values, setValues, handleChange, isValid, errors} = useFormAndValidation();
+  const {values, handleChange, isValid, errors} = useFormAndValidation();
   
   function handleSubmit(e) {
     e.preventDefault();
