@@ -38,7 +38,6 @@ export default function MoviesCard({
           onClick={() => {
               handleMovieIconClick(movie);
               setIsLike(!isLike);
-              console.log(savedMovies)
             }
           }
         >

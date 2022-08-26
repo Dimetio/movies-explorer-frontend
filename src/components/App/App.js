@@ -52,8 +52,8 @@ function App() {
       .then((data) => {
         if (data) {
           setIsLoggedIn(true);
-          setCurrentUser(data)
-          navigate(location.pathname)
+          setCurrentUser(data);
+          navigate(location.pathname);
         } else {
           setIsLoggedIn(false);
         }
@@ -74,6 +74,7 @@ function App() {
   function handleSignin(email, password) {
     return mainApi.signin(email, password)
       .then(() => {
+        tokenCheck();
         navigate('/movies', { replace: true })            
       })
       .catch(err => console.log(err.message)) 
@@ -92,13 +93,14 @@ function App() {
   function handleSignout() {
     return mainApi.signout()
       .then(() => {
+        setIsLoggedIn(false);
         setCurrentUser({});
         localStorage.removeItem('movies');
         localStorage.removeItem('filtered-movies');
         localStorage.removeItem('filtered-saved-movies');
         localStorage.removeItem('local-check');
         localStorage.removeItem('local-search-value');
-        navigate('/signin', { replace: true });  
+        navigate('/', { replace: true });  
       })
       .catch(err => console.log(err.message))
   }
@@ -127,7 +129,6 @@ function App() {
       .then((newMovie) => {
         setSavedMovies([...savedMovies, newMovie]);
         newMovie.isLiked = true;
-        console.log('Добавил фильм')
       })
       .catch(err => console.log(err.message))
   }
@@ -137,7 +138,6 @@ function App() {
       .then(() => {
         setSavedMovies(savedMovies.filter((i) => i._id !== movie._id));
         setFilterSavedMovies(filterSavedMovies.filter((i) => i._id !== movie._id));
-        console.log('Удалил фильм')
       })
   }
 
@@ -237,7 +237,7 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-  }, [])
+  }, [isLoggedIn])
 
   // при входе делаю запрос и сохраняю фильмы в localStorage
   useEffect(() => {
@@ -279,12 +279,12 @@ function App() {
                   >
                     <Movies
                       movies={filterMovies}
-                      handleMovieIconClick={handleMovieIconClick}
-                      moviesListLength={moviesListLength}
-                      moreMovies={moreMovies}
-                      handleSearch={handleSearchMovies}
-                      durationSwitch={durationSwitch}
-                      savedMovies={savedMovies}
+                      handleMovieIconClick={handleMovieIconClick} // обработчик по лайку
+                      moviesListLength={moviesListLength} // сколько выводить фильмов
+                      moreMovies={moreMovies} // обработчик кнопки ещё
+                      handleSearch={handleSearchMovies} // обработчик поиска
+                      durationSwitch={durationSwitch} // обработчик чекбокса
+                      savedMovies={savedMovies} // массив сох.фильмов, чтобы проставить лайку сразу
                     />
                   </ProtectedRoute>
                 }
@@ -322,12 +322,12 @@ function App() {
 
               <Route 
                 path="/signin"
-                element={<Login signin={handleSignin}/>}
+                element={<Login signin={handleSignin} isLoggedIn={isLoggedIn}/>}
               />
 
               <Route 
                 path="/signup"
-                element={<Register signup={handleSignup}/>}
+                element={<Register signup={handleSignup} isLoggedIn={isLoggedIn}/>}
               />
 
               <Route 

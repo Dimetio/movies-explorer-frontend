@@ -11,10 +11,10 @@ export default function MoviesCardList({
   return (
     <section className="movies-list">
       {
-        movies.map((movie, index) => (
+        movies.map((movie) => (
           <MoviesCard 
             movie={movie}
-            key={movie.id ? movie.id : index}
+            key={movie.id ? movie.id : movie.movieId}
             handleMovieIconClick={handleMovieIconClick}
             isLike={isLike}
             savedMovies={savedMovies}

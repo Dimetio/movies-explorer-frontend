@@ -48,6 +48,7 @@
   font-size: 10px;
   line-height: 12px;
   color: #EE3465;
+  max-width: 396px;
 }
 
 .input-error__show {

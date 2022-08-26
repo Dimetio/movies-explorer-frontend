@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DisableComponentContext from '../../contexts/DisableComponent';
 import useFormAndValidation from '../../hook/useFormAndValidation';
 
@@ -6,24 +7,28 @@ import './Login.css';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 
-export default function Login({signin}) {
+export default function Login({signin, isLoggedIn}) {
+  const navigate = useNavigate();
   const {values, handleChange, isValid, errors} = useFormAndValidation();
   
   function handleSubmit(e) {
     e.preventDefault();
-    signin(values.email, values.password)
-    console.log(values)
+    signin(values.email, values.password);
   }
 
   const disableComponent = useContext(DisableComponentContext);
 
   useEffect(()=> {
+    if(isLoggedIn) {
+      navigate('/');
+    }
+
     disableComponent({header: true, footer: true});
 
     return () => {
       disableComponent({header: false, footer: false})
     }
-  }, []);
+  }, [disableComponent, isLoggedIn, navigate]);
 
   return (
     <section className="register">
