@@ -112,14 +112,12 @@ function App() {
 
   // сохраняю или удаляю фильм
   function handleMovieIconClick(movie) {
-    const like = savedMovies.some((i) => {
-      return i.movieId === movie.id
-    });
+    const like = savedMovies.some((i) => i.movieId === movie.id);
 
     if (!like) {
       handleSaveMovie(movie);
     } else {
-      const dislike = savedMovies.find((i) => i.movieId === movie.id)
+      const dislike = savedMovies.find((i) => i.movieId === movie.id);
       handleDeleteMovie(dislike);
     }
   }
@@ -129,7 +127,7 @@ function App() {
       .then((newMovie) => {
         setSavedMovies([...savedMovies, newMovie]);
         newMovie.isLiked = true;
-        console.log('Фильм добавил');
+        console.log('Добавил фильм')
       })
       .catch(err => console.log(err.message))
   }
@@ -138,7 +136,8 @@ function App() {
     return mainApi.deleteMovie(movie)
       .then(() => {
         setSavedMovies(savedMovies.filter((i) => i._id !== movie._id));
-        console.log('Удалили фильм')
+        setFilterSavedMovies(filterSavedMovies.filter((i) => i._id !== movie._id));
+        console.log('Удалил фильм')
       })
   }
 
@@ -285,6 +284,7 @@ function App() {
                       moreMovies={moreMovies}
                       handleSearch={handleSearchMovies}
                       durationSwitch={durationSwitch}
+                      savedMovies={savedMovies}
                     />
                   </ProtectedRoute>
                 }

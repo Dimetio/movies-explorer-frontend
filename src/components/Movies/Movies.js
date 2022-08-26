@@ -11,6 +11,7 @@ export default function Movies({
   moreMovies,
   handleSearch,
   durationSwitch,
+  savedMovies
 }) {
   const [isShort, setIsShort] = useState(false);
   
@@ -36,6 +37,7 @@ export default function Movies({
         movies={movies}
         handleMovieIconClick={handleMovieIconClick}
         moviesListLength={moviesListLength}
+        savedMovies={savedMovies}
       />
 
       { 

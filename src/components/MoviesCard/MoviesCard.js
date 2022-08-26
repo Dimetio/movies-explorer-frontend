@@ -9,6 +9,7 @@ import deleteIcon from '../../images/delete.svg';
 export default function MoviesCard({
   movie,
   handleMovieIconClick,
+  savedMovies,
 }) {
   const location = useLocation();
   const [isLike, setIsLike] = useState(false);
@@ -37,12 +38,13 @@ export default function MoviesCard({
           onClick={() => {
               handleMovieIconClick(movie);
               setIsLike(!isLike);
+              console.log(savedMovies)
             }
           }
         >
           <img src={
             isMyCard ? deleteIcon : 
-            isLike ? likeActive : like
+            savedMovies.some((m) => m.movieId === movie.id) ? likeActive : like
           } alt={isMyCard ? 'крестик' : 'сердечко'}/>
         </button>
       </div>      

@@ -6,6 +6,7 @@ export default function MoviesCardList({
   handleMovieIconClick,
   isLike,
   moviesListLength,
+  savedMovies,
 }) {
   return (
     <section className="movies-list">
@@ -16,6 +17,7 @@ export default function MoviesCardList({
             key={movie.id ? movie.id : index}
             handleMovieIconClick={handleMovieIconClick}
             isLike={isLike}
+            savedMovies={savedMovies}
           />
         )).slice(0, moviesListLength)
       }
