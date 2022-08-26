@@ -45,6 +45,8 @@ export default function Register({signup}) {
           required={true}
           autoComplete="off"
           handleChange={handleChange}
+          minLength="2"
+          maxLength="30"
         />
 
         <Input 
@@ -56,7 +58,7 @@ export default function Register({signup}) {
           inputClass="input-border"
           required={true}
           autoComplete="off"
-          handleChange={handleChange}            
+          handleChange={handleChange}         
         />
 
         <Input 
@@ -68,7 +70,6 @@ export default function Register({signup}) {
           inputClass="input-border"
           required={true}
           minLength="4"
-          maxLength="12"
           autoComplete="off"
           handleChange={handleChange}            
         />

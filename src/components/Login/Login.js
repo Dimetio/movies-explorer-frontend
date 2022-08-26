@@ -56,6 +56,7 @@ export default function Login({signin}) {
           value={values.password}
           handleChange={handleChange}
           required={true}
+          minLength="4"
         />
         
       </Form>

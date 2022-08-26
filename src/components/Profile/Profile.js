@@ -49,7 +49,10 @@ export default function Profile({editProfile, handleSignout}) {
               inputClass="input-profile"
               disabled={!isEdit}
               handleChange={handleChange}
-              value={values.name}required={true}
+              value={values.name}
+              required={true}
+              minLength="2"
+              maxLength="30"
             />
             <Input 
               inputTitle="E-mail"
