@@ -7,7 +7,7 @@ import './Profile.css';
 import Input from '../Input/Input';
 
 export default function Profile({editProfile, handleSignout}) {
-  const {values, setValues, handleChange, isValid, errors, resetForm} = useFormAndValidation();
+  const {values, setValues, handleChange, isValid, errors} = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -53,6 +53,7 @@ export default function Profile({editProfile, handleSignout}) {
               required={true}
               minLength="2"
               maxLength="30"
+              errors={errors.name}
             />
             <Input 
               inputTitle="E-mail"
@@ -65,6 +66,7 @@ export default function Profile({editProfile, handleSignout}) {
               handleChange={handleChange}
               value={values.email}
               required={true}
+              errors={errors.email}
             />
           </div>
 

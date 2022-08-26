@@ -47,6 +47,7 @@ export default function Register({signup}) {
           handleChange={handleChange}
           minLength="2"
           maxLength="30"
+          errors={errors.name}
         />
 
         <Input 
@@ -58,7 +59,8 @@ export default function Register({signup}) {
           inputClass="input-border"
           required={true}
           autoComplete="off"
-          handleChange={handleChange}         
+          handleChange={handleChange}
+          errors={errors.email}
         />
 
         <Input 
@@ -71,7 +73,8 @@ export default function Register({signup}) {
           required={true}
           minLength="4"
           autoComplete="off"
-          handleChange={handleChange}            
+          handleChange={handleChange}
+          errors={errors.password}           
         />
       </Form>   
     </section>

@@ -7,7 +7,7 @@ import Form from '../Form/Form';
 import Input from '../Input/Input';
 
 export default function Login({signin}) {
-  const {values, setValues, handleChange, isValid, errors, resetForm} = useFormAndValidation();
+  const {values, setValues, handleChange, isValid, errors} = useFormAndValidation();
   
   function handleSubmit(e) {
     e.preventDefault();
@@ -45,6 +45,7 @@ export default function Login({signin}) {
           inputClass="input-border"
           handleChange={handleChange}
           required={true}
+          errors={errors.email}
         />
 
         <Input 
@@ -57,6 +58,7 @@ export default function Login({signin}) {
           handleChange={handleChange}
           required={true}
           minLength="4"
+          errors={errors.password}
         />
         
       </Form>

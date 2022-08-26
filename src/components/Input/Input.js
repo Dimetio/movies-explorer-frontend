@@ -13,11 +13,8 @@ export default function Input({
   maxLength,
   handleChange,
   disabled,
+  errors
   }) {
-
-  // function handleChange(e) {
-  //   onChange({[name]: e.target.value})
-  // } 
 
   return (
     <>
@@ -36,7 +33,7 @@ export default function Input({
           disabled={disabled}
         />
       </label>
-      <span className="input-error">Что-то пошло не так...</span>
+      <span className={`input-error ${errors && 'input-error__show'}`}>{errors}</span>
     </>
   )
 }
