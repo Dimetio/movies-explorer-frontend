@@ -41,6 +41,7 @@ function App() {
   const [numberOfNew, setNumberOfNew] = useState(0);
   // длина изначального массива фильмов
   const [moviesListLength, setMovieListLength] = useState(0);
+  const [pretext, setPretext] = useState('Введите название фильма в поисковой строке');
 
   const [width, setWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
@@ -143,6 +144,11 @@ function App() {
 
   // поиск по фильмам
   function handleSearchMovies(value) {
+    // если кина вообще нет, то что-то случилось на сервере
+    if(movies) {
+      setPretext('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+    }
+
     const filterMovie = movies.filter((item) => {
       const values = value.toLowerCase();
       const nameEN = item.nameEN;
@@ -157,12 +163,23 @@ function App() {
         ) ? item : null
       )
     });
+    
+    // если поиск ничего не выдал
+    if(filterMovie.length === 0) {
+      setPretext('Ничего не найдено');
+    }
+
     localStorage.setItem('filtered-movies', JSON.stringify(filterMovie));
     setFilterMovies(filterMovie);
   }
 
   // поиск по сохраненным фильмам
   function handleSearchSavedMovies(value) {
+    // если кина вообще нет, то что-то случилось на сервере
+    if(savedMovies) {
+      setPretext('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+    }
+
     const filterSavedMovie = savedMovies.filter((item) => {
       const values = value.toLowerCase();
       const nameEN = item.nameEN;
@@ -177,8 +194,14 @@ function App() {
         ) ? item : null
       )
     });
+
+    // если поиск ничего не выдал
+    if(filterSavedMovie.length === 0) {
+      setPretext('Ничего не найдено');
+    }
+
     localStorage.setItem('filtered-saved-movies', JSON.stringify(filterSavedMovie));
-    setFilterSavedMovies(filterSavedMovie.length > 0 ? filterSavedMovie : savedMovies);
+    setFilterSavedMovies(filterSavedMovie);
   }
 
   // сортировка по длине фильмов
@@ -285,6 +308,7 @@ function App() {
                       handleSearch={handleSearchMovies} // обработчик поиска
                       durationSwitch={durationSwitch} // обработчик чекбокса
                       savedMovies={savedMovies} // массив сох.фильмов, чтобы проставить лайку сразу
+                      pretext={pretext} // сообщение на месте карточек
                     />
                   </ProtectedRoute>
                 }
@@ -301,6 +325,7 @@ function App() {
                       handleMovieIconClick={handleDeleteMovie}
                       handleSearch={handleSearchSavedMovies}
                       durationSwitch={durationSavedSwitch}
+                      pretext={pretext}
                     />
                   </ProtectedRoute>                
                 }

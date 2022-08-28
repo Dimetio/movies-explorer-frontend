@@ -11,7 +11,8 @@ export default function Movies({
   moreMovies,
   handleSearch,
   durationSwitch,
-  savedMovies
+  savedMovies,
+  pretext,
 }) {
   const [isShort, setIsShort] = useState(false);
   
@@ -33,16 +34,17 @@ export default function Movies({
         isShort={isShort}
         handleSearch={handleSearch}
       />
+
       <MoviesCardList 
         movies={movies}
         handleMovieIconClick={handleMovieIconClick}
         moviesListLength={moviesListLength}
         savedMovies={savedMovies}
-      />
+      />      
 
       { 
         movies.length === 0 ? 
-        <p className="movies-pretext">Введите название фильма в поисковой строке</p> :
+        <p className="movies-pretext">{pretext}</p> :
         movies.length > moviesListLength &&         
         <button 
           type="button" 
@@ -51,7 +53,6 @@ export default function Movies({
         >Ещё</button>
       }
       
-    </>
-    
+    </>    
   )
 }

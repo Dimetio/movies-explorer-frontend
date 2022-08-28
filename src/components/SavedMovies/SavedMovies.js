@@ -9,6 +9,7 @@ export default function SavedMovies({
     handleMovieIconClick,
     handleSearch,
     durationSwitch,
+    pretext
 }) {
   const [isShort, setIsShort] = useState(false);
 
@@ -29,6 +30,11 @@ export default function SavedMovies({
         movies={movies}
         handleMovieIconClick={handleMovieIconClick}
       />
+
+      {
+        movies.length === 0 ? <p className="movies-pretext">{pretext}</p> : null
+      }
+      
     </>
   )
 }
