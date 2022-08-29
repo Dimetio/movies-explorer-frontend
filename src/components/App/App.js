@@ -57,6 +57,9 @@ function App() {
           navigate(location.pathname);
         } else {
           setIsLoggedIn(false);
+          navigate('/signin');
+          setCurrentUser({});
+          localStorage.clear();
         }
       })
       .catch(err => console.log(err.message))
