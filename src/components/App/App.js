@@ -66,7 +66,7 @@ function App() {
   function handleSignup(name, email, password) {
     return mainApi.signup(name, email, password)
       .then(() => {
-        navigate('/signin', { replace: true });
+        handleSignin(email, password);
       })
       .catch(err => console.log(err.message))
   }
@@ -240,13 +240,14 @@ function App() {
 
   // меняю вывод максимальное количество карточек
   useEffect(() => {
-    if(width >= 1200) {
+    console.log(width)
+    if(width >= 1140) {
       setNumberOfNew(3);
       setMovieListLength(12);
-    } else if(width >= 641 && width <= 1279) {
+    } else if(width >= 708) {
       setNumberOfNew(2);
       setMovieListLength(8);
-    } else if(width <= 640) {
+    } else if(width < 708) {
       setNumberOfNew(1);
       setMovieListLength(5);
     }
