@@ -7,7 +7,7 @@ import './Profile.css';
 import Input from '../Input/Input';
 
 export default function Profile({editProfile, handleSignout}) {
-  const {values, setValues, handleChange, isValid, errors} = useFormAndValidation();
+  const {values, setValues, handleChange, isValid, setIsValid, errors} = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -34,6 +34,12 @@ export default function Profile({editProfile, handleSignout}) {
       disableComponent({footer: false, ...disableComponent})
     }
   }, [disableComponent]);
+
+  useEffect(()=> {
+    if(values.name === currentUser.name || values.email === currentUser.email) {
+      setIsValid(false);
+    }
+  }, [values])
 
   return (
     <>
