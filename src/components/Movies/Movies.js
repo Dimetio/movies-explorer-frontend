@@ -8,7 +8,7 @@ export default function Movies({
   movies,
   handleMovieIconClick,
   moviesListLength,
-  moreMovies,
+  getMoreMovies,
   handleSearch,
   durationSwitch,
   savedMovies,
@@ -49,7 +49,7 @@ export default function Movies({
         <button 
           type="button" 
           className="movies-list__more"
-          onClick={moreMovies}
+          onClick={getMoreMovies}
         >Ещё</button>
       }
       

@@ -48,7 +48,7 @@ function App() {
   const location = useLocation();
 
   // проверка токена
-  function tokenCheck() {
+  function checkToken() {
     mainApi.getToken()
       .then((data) => {
         if (data) {
@@ -78,7 +78,7 @@ function App() {
   function handleSignin(email, password) {
     return mainApi.signin(email, password)
       .then(() => {
-        tokenCheck();
+        checkToken();
         navigate('/movies', { replace: true })            
       })
       .catch(err => console.log(err.message)) 
@@ -208,7 +208,7 @@ function App() {
   }
 
   // сортировка по длине фильмов
-  function durationSwitch(checked) {
+  function handleDurationSwitch(checked) {
     const filterMovies = JSON.parse(localStorage.getItem('filtered-movies'));
 
     if(checked && filterMovies) {
@@ -220,7 +220,7 @@ function App() {
   }
 
   // сортировка по длине сохраненных фильмов
-  function durationSavedSwitch(checked) {
+  function handleDurationSavedSwitch(checked) {
     const filterSavedMovies = JSON.parse(localStorage.getItem('filtered-saved-movies'));
 
     if(checked && filterSavedMovies) {
@@ -237,13 +237,12 @@ function App() {
   }
 
  // кнопка Ещё
-  function moreMovies() {
+  function getMoreMovies() {
     setMovieListLength(moviesListLength + numberOfNew);
   }
 
   // меняю вывод максимальное количество карточек
-  useEffect(() => {
-    console.log(width)
+  useEffect(() => { 
     if(width >= 1140) {
       setNumberOfNew(3);
       setMovieListLength(12);
@@ -263,7 +262,7 @@ function App() {
   });
 
   useEffect(() => {
-    tokenCheck();
+    checkToken();
   }, [isLoggedIn])
 
   // при входе делаю запрос и сохраняю фильмы в localStorage
@@ -308,9 +307,9 @@ function App() {
                       movies={filterMovies}
                       handleMovieIconClick={handleMovieIconClick} // обработчик по лайку
                       moviesListLength={moviesListLength} // сколько выводить фильмов
-                      moreMovies={moreMovies} // обработчик кнопки ещё
+                      getMoreMovies={getMoreMovies} // обработчик кнопки ещё
                       handleSearch={handleSearchMovies} // обработчик поиска
-                      durationSwitch={durationSwitch} // обработчик чекбокса
+                      durationSwitch={handleDurationSwitch} // обработчик чекбокса
                       savedMovies={savedMovies} // массив сох.фильмов, чтобы проставить лайку сразу
                       pretext={pretext} // сообщение на месте карточек
                     />
@@ -328,7 +327,7 @@ function App() {
                       movies={filterSavedMovies}
                       handleMovieIconClick={handleDeleteMovie}
                       handleSearch={handleSearchSavedMovies}
-                      durationSwitch={durationSavedSwitch}
+                      durationSwitch={handleDurationSavedSwitch}
                       pretext={pretext}
                     />
                   </ProtectedRoute>                
