@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import CurrentUserContext from "../../contexts/CurrentUserContext"
 import DisableComponentContext from '../../contexts/DisableComponent';
 import useFormAndValidation from '../../hook/useFormAndValidation';
+import Toasty from './Toasty/Toasty';
 
 import './Profile.css';
 import Input from '../Input/Input';
@@ -10,16 +11,19 @@ export default function Profile({editProfile, handleSignout}) {
   const {values, setValues, handleChange, isValid, setIsValid, errors} = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
   const [isEdit, setIsEdit] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   function handleEditProfile(e) {
     e.preventDefault();
     setIsEdit(true);
+    setSuccess(false);
   }
 
   function handleSaveProfile(e) {
     e.preventDefault();
     setIsEdit(false);
     editProfile(values);
+    setSuccess(true);
   }
 
   const disableComponent = useContext(DisableComponentContext);
@@ -36,7 +40,7 @@ export default function Profile({editProfile, handleSignout}) {
   }, [disableComponent]);
 
   useEffect(()=> {
-    if(values.name === currentUser.name || values.email === currentUser.email) {
+    if(values.name === currentUser.name && values.email === currentUser.email) {
       setIsValid(false);
     }
   }, [values])
@@ -44,6 +48,7 @@ export default function Profile({editProfile, handleSignout}) {
   return (
     <>
       <section className="profile">
+      <Toasty success={success}/>
         <form className="profile-form">
           <h2 className="profile-form__title">{`Привет, ${values.name}`}</h2>
           <div className="profile-form__inputs">
