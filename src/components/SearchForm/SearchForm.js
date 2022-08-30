@@ -1,44 +1,37 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from 'react';
 import './SearchForm.css';
 import icon from '../../images/search.svg';
+import useFormAndValidation from '../../hook/useFormAndValidation';
 
 export default function SearchForm({
-  handleShort,
-  isShort,
   handleSearch,
+  initialValue,
+  initialChecked,
+  onCheckChange
 }) {
-  const localStorageValue = localStorage.getItem('local-search-value');
-  const [value, setValue] = useState(localStorageValue ?? '');
-  const location = useLocation();
+  const {values, handleChange, isValid, errors, setErrors} = useFormAndValidation();
 
-  function handleChange(e) {
-    setValue(e.target.value);
+  function handleCheck(e) {
+    onCheckChange(e.target.checked);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleSearch(value);
-  }
 
-  // по переходу в сохраненки - сбрасываю поиск
-  useEffect(() => {
-    if(location.pathname === '/saved-movies') {
-      handleSearch(value);
-      setValue('');
-    }
-  }, [location])
-
-  useEffect(() => {
-    if(location.pathname === '/movies') {
-      localStorage.setItem('local-search-value', value);
+    if(isValid) {
+      handleSearch(values.search);
     }    
-  }, [location ,value]);
+  }
+  // хак, чтобы отображать в placeholder при первом рендеринге слово "Фильм"
+  useEffect(()=> {
+    setErrors({search : "Фильм"})
+  }, []);
 
   return (
     <form 
-      className="search-form container"
+      className="search-form form container"
       onSubmit={handleSubmit}
+      noValidate
     >
         <div className="search-from__wrap">
           <button type="submit" className="search-form__button search-form__button_primary">
@@ -49,9 +42,9 @@ export default function SearchForm({
             name="search"
             type="text" 
             className="search-form__input" 
-            placeholder="Фильм" 
+            placeholder={isValid ? '' : errors.search}
             required
-            value={value}
+            defaultValue={initialValue}
             onChange={handleChange}
           />
 
@@ -65,8 +58,8 @@ export default function SearchForm({
             <input 
               type="checkbox" 
               className="switch__input"
-              checked={isShort} 
-              onChange={handleShort}
+              defaultChecked={initialChecked}
+              onChange={handleCheck}
             />
             <span className="switch__slider round"></span>
           </label>

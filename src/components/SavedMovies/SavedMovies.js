@@ -1,5 +1,3 @@
-import {useState} from 'react';
-
 import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -11,19 +9,22 @@ export default function SavedMovies({
     durationSwitch,
     pretext
 }) {
-  const [isShort, setIsShort] = useState(false);
-
-  function handleShort() {
-    setIsShort(!isShort);
-    durationSwitch(!isShort);
+  function onCheckChange(checked) {
+    durationSwitch(checked);
+    localStorage.setItem('saved-movies-check', checked);
   }
-  // ловлю баг с переключателем обратно, массив пустой
+
+  function onValueChange(value) {
+    handleSearch(value)
+    localStorage.setItem('saved-movies-search-value', value);
+  }
   return (
     <>
       <SearchForm 
-        handleShort={handleShort} 
-        isShort={isShort}
-        handleSearch={handleSearch}
+        handleSearch={onValueChange}
+        initialValue={localStorage.getItem('saved-movies-search-value')}
+        initialChecked={JSON.parse(localStorage.getItem('saved-movies-check'))}
+        onCheckChange={onCheckChange}
       />
 
       <MoviesCardList 

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import Preloader from '../Preloader/Preloader';
 
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
@@ -13,34 +13,37 @@ export default function Movies({
   durationSwitch,
   savedMovies,
   pretext,
+  isLoading
 }) {
-  const [isShort, setIsShort] = useState(false);
-  
-  function handleShort(e) {
-    setIsShort(!isShort);
-    durationSwitch(!isShort);
-    localStorage.setItem('local-check', !isShort);
+
+  function onCheckChange(checked) {
+    durationSwitch(checked);
+    localStorage.setItem('movies-check', checked);
   }
 
-  useEffect(() => {    
-    const localCheck = JSON.parse(localStorage.getItem('local-check'));
-    setIsShort(localCheck ?? false);
-  }, []);
-
+  function onValueChange(value) {
+    handleSearch(value)
+    localStorage.setItem('movies-search-value', value);
+  }
   return (
     <>
       <SearchForm 
-        handleShort={handleShort}
-        isShort={isShort}
-        handleSearch={handleSearch}
+        handleSearch={onValueChange}
+        initialValue={localStorage.getItem('movies-search-value')}
+        initialChecked={JSON.parse(localStorage.getItem('movies-check'))}
+        onCheckChange={onCheckChange}
       />
-
-      <MoviesCardList 
+      
+      {isLoading ? 
+        <Preloader/> 
+        :
+        <MoviesCardList 
         movies={movies}
         handleMovieIconClick={handleMovieIconClick}
         moviesListLength={moviesListLength}
         savedMovies={savedMovies}
-      />      
+      />
+      }
 
       { 
         movies.length === 0 ? 

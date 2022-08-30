@@ -28,5 +28,6 @@ export default function useFormAndValidation() {
     resetForm,
     setIsValid,
     setValues,
+    setErrors,
   }
 }

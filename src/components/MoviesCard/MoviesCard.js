@@ -13,7 +13,7 @@ export default function MoviesCard({
 }) {
   const location = useLocation();
   const [isLike, setIsLike] = useState(false);
-
+  
   function getDuration(duration) {
     return `${Math.floor(duration / 60)}ч ${duration % 60}м`;
   }
