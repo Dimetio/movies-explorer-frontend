@@ -49,7 +49,7 @@ export default function Profile({editProfile, handleSignout}) {
     <>
       <section className="profile">
       <Toasty success={success}/>
-        <form className="profile-form">
+        <form className="profile-form form">
           <h2 className="profile-form__title">{`Привет, ${values.name}`}</h2>
           <div className="profile-form__inputs">
             <Input 
@@ -70,7 +70,7 @@ export default function Profile({editProfile, handleSignout}) {
             <Input 
               inputTitle="E-mail"
               name="email"
-              type="email"
+              type="text"
               placeholder={"Введите E-mail"}
               labelClass="label-profile"
               inputClass="input-profile"
@@ -79,6 +79,7 @@ export default function Profile({editProfile, handleSignout}) {
               value={values.email}
               required={true}
               errors={errors.email}
+              pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
             />
           </div>
 

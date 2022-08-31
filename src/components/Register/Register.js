@@ -58,7 +58,7 @@ export default function Register({signup, isLoggedIn}) {
         <Input 
           inputTitle="E-mail"
           name="email"
-          type="email"
+          type="text"
           placeholder="Введите E-mail"
           value={values.email}
           inputClass="input-border"
@@ -66,6 +66,7 @@ export default function Register({signup, isLoggedIn}) {
           autoComplete="off"
           handleChange={handleChange}
           errors={errors.email}
+          pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
         />
 
         <Input 

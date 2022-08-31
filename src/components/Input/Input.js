@@ -13,7 +13,8 @@ export default function Input({
   maxLength,
   handleChange,
   disabled,
-  errors
+  errors,
+  pattern
   }) {
 
   return (
@@ -31,6 +32,7 @@ export default function Input({
           minLength={minLength}
           maxLength={maxLength}
           disabled={disabled}
+          pattern={pattern}
         />
       </label>
       <span className={`input-error ${errors && 'input-error__show'}`}>{errors}</span>
