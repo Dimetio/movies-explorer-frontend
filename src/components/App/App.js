@@ -38,9 +38,9 @@ function App() {
   const [filteredMovies, setFilteredMovies] = useState(JSON.parse(localStorage.getItem('filtered-movies')) ?? []);
   const [filterSavedMovies, setFilterSavedMovies] = useState(JSON.parse(localStorage.getItem('filtered-saved-movies')) ?? []);
   // количество новых карточек
-  const [numberOfNew, setNumberOfNew] = useState(null);
+  const [numberOfNew, setNumberOfNew] = useState(0);
   // длина изначального массива фильмов
-  const [moviesListLength, setMovieListLength] = useState(null);
+  const [moviesListLength, setMovieListLength] = useState(0);
   const [pretext, setPretext] = useState('Введите название фильма в поисковой строке');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -204,6 +204,7 @@ function App() {
 
     if(checked && filteredMovies) {
       const shortMovies = filteredMovies.filter((item) => item.duration <= 40);
+      localStorage.setItem('filtered-movies', JSON.stringify(shortMovies));
       setFilteredMovies(shortMovies);
     } else {
       setFilteredMovies(filteredMovies);
@@ -229,6 +230,7 @@ function App() {
 
     if(checked && filterSavedMovies) {
       const shortMovies = filterSavedMovies.filter((item) => item.duration <= 40);
+      localStorage.setItem('filtered-saved-movies', JSON.stringify(shortMovies));
       setFilterSavedMovies(shortMovies);
     } else {
       setFilterSavedMovies(filterSavedMovies);
@@ -248,14 +250,14 @@ function App() {
   // меняю вывод максимальное количество карточек
   useEffect(() => { 
     if(width >= 1140) {
-      setNumberOfNew(numberOfNew ?? 3);
-      setMovieListLength(moviesListLength ?? 12);
-    } else if(width >= 708) {
-      setNumberOfNew(numberOfNew ?? 2);
-      setMovieListLength(moviesListLength ?? 8);
+      setNumberOfNew(3);
+      setMovieListLength(12);
+    } else if(width < 1140) {
+      setNumberOfNew(2);
+      setMovieListLength(8);
     } else if(width < 708) {
-      setNumberOfNew(numberOfNew ?? 1);
-      setMovieListLength(moviesListLength ?? 5);
+      setNumberOfNew(1);
+      setMovieListLength(5);
     }
   }, [width]);
 
