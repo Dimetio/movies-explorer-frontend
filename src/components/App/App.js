@@ -54,7 +54,7 @@ function App() {
         if (data) {
           setIsLoggedIn(true);
           setCurrentUser(data);
-          navigate(location.pathname);
+          navigate(location.pathname, { replace: true });
         } else {
           setIsLoggedIn(false);
           setCurrentUser({});

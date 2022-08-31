@@ -5,7 +5,6 @@ export default function NotFound() {
   let navigate = useNavigate();
 
   function handleClick() {
-    console.log(navigate(-1))
     return navigate(-1);
   }
 
