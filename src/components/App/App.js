@@ -204,7 +204,6 @@ function App() {
 
     if(checked && filteredMovies) {
       const shortMovies = filteredMovies.filter((item) => item.duration <= 40);
-      localStorage.setItem('filtered-movies', JSON.stringify(shortMovies));
       setFilteredMovies(shortMovies);
     } else {
       setFilteredMovies(filteredMovies);
@@ -230,7 +229,6 @@ function App() {
 
     if(checked && filterSavedMovies) {
       const shortMovies = filterSavedMovies.filter((item) => item.duration <= 40);
-      localStorage.setItem('filtered-saved-movies', JSON.stringify(shortMovies));
       setFilterSavedMovies(shortMovies);
     } else {
       setFilterSavedMovies(filterSavedMovies);
