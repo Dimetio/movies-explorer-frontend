@@ -91,19 +91,19 @@ export const saveMovie = (movie) => {
     withCredentials: true,
     credentials: 'include',
     body: JSON.stringify({
-      country: movie.country ?? '1',
-      director: movie.director,         
-      duration: movie.duration,
-      year: movie.year,
-      description: movie.description,
+      country: movie.country || 'не указано',
+      director: movie.director || 'не указано',
+      duration: movie.duration || 'не указано',
+      year: movie.year || 'не указано',
+      description: movie.description || 'не указано',
       image: `https://api.nomoreparties.co${movie.image.url}`,
       trailerLink: movie.trailerLink
         ? movie.trailerLink
         : `https://www.youtube.com/results?search_query=трейлер+${movie.nameRU}`,
       thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
       movieId: movie.id,
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN ?? movie.nameRU,  
+      nameRU: movie.nameRU || movie.nameEN,
+      nameEN: movie.nameEN || movie.nameRU,
     })
   })
   .then(checkResponse);
