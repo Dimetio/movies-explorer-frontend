@@ -2,45 +2,50 @@ import { useState, useContext, useEffect } from 'react';
 import CurrentUserContext from "../../contexts/CurrentUserContext"
 import DisableComponentContext from '../../contexts/DisableComponent';
 import useFormAndValidation from '../../hook/useFormAndValidation';
-import Toasty from './Toasty/Toasty';
+import Toasty from '../Toasty/Toasty';
 
 import './Profile.css';
 import Input from '../Input/Input';
 
-export default function Profile({editProfile, handleSignout}) {
-  const {values, setValues, handleChange, isValid, setIsValid, errors} = useFormAndValidation();
+export default function Profile({ editProfile,
+  handleSignout,
+  toastyText,
+  isSuccess,
+  showToasty,
+  setShowToasty
+}) {
+  const { values, setValues, handleChange, isValid, setIsValid, errors } = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
   const [isEdit, setIsEdit] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   function handleEditProfile(e) {
     e.preventDefault();
     setIsEdit(true);
-    setSuccess(false);
+    setShowToasty(false);
   }
 
   function handleSaveProfile(e) {
     e.preventDefault();
     setIsEdit(false);
     editProfile(values);
-    setSuccess(true);
+    setShowToasty(true);
   }
 
   const disableComponent = useContext(DisableComponentContext);
 
-  useEffect(()=> {
+  useEffect(() => {
     // заполняю поля контекста юзера
-    setValues({name: currentUser.name, email: currentUser.email});
+    setValues({ name: currentUser.name, email: currentUser.email });
 
-    disableComponent({footer: true, ...disableComponent});
+    disableComponent({ footer: true, ...disableComponent });
 
     return () => {
-      disableComponent({footer: false, ...disableComponent})
+      disableComponent({ footer: false, ...disableComponent })
     }
   }, [disableComponent]);
 
-  useEffect(()=> {
-    if(values.name === currentUser.name && values.email === currentUser.email) {
+  useEffect(() => {
+    if (values.name === currentUser.name && values.email === currentUser.email) {
       setIsValid(false);
     }
   }, [values])
@@ -48,11 +53,15 @@ export default function Profile({editProfile, handleSignout}) {
   return (
     <>
       <section className="profile">
-      <Toasty success={success}/>
+        <Toasty
+          showToasty={showToasty}
+          toastyText={toastyText}
+          isSuccess={isSuccess}
+        />
         <form className="profile-form form">
           <h2 className="profile-form__title">{`Привет, ${values.name}`}</h2>
           <div className="profile-form__inputs">
-            <Input 
+            <Input
               inputTitle="Имя"
               name="name"
               type="text"
@@ -67,7 +76,7 @@ export default function Profile({editProfile, handleSignout}) {
               maxLength="30"
               errors={errors.name}
             />
-            <Input 
+            <Input
               inputTitle="E-mail"
               name="email"
               type="text"
@@ -83,14 +92,14 @@ export default function Profile({editProfile, handleSignout}) {
             />
           </div>
 
-          <button 
-            type={isEdit ? "submit" : "button"} 
+          <button
+            type={isEdit ? "submit" : "button"}
             className={`profile__button profile__button-edit ${isEdit && !isValid && "profile__button_inactive"}`}
             onClick={isEdit ? handleSaveProfile : handleEditProfile}
             disabled={isEdit && !isValid}
           >{isEdit ? "Сохранить" : "Редактировать"}</button>
         </form>
-        
+
         <p
           className="profile__button profile__button-signout"
           onClick={handleSignout}

@@ -1,11 +1,23 @@
 .toasty {
   position: absolute;
-  top: 380px;
+  top: 100px;
   right: -100%;
-  background-color: #03B309;
+  width: 200px;
+  border-radius: 6px;
   display: flex;
   align-content: center;
   justify-content: center;
+  
+}
+
+.toasty_success {
+  background-color: #449D44;
+  border-color: #449D44;
+}
+
+.toasty__error {
+  background-color: #D9534F;
+  border-color: #D43F3A;
 }
 
 .toasty__text {
@@ -19,7 +31,7 @@
 }
 
 .toasty-show {
-  animation: show 2s ease-in-out;
+  animation: show 3s ease-in-out;
 }
 
 @keyframes show {
@@ -27,12 +39,12 @@
     right: -100%;
   }
 
-  70% {
-    right: 134px;
+  30% {
+    right: 50px;
   }
 
   100% {
-    right: 134px;
+    right: 50px;
     display: none;
   }
 }

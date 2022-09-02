@@ -1,11 +1,9 @@
 .profile {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 70px auto 40px;
   min-width: 410px;
-  overflow: hidden;
 }
 
 .profile-form {

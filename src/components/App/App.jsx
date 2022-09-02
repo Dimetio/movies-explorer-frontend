@@ -34,6 +34,10 @@ function App() {
   const [numberOfNew, setNumberOfNew] = useState(3);
   // длина изначального массива фильмов
   const [moviesListLength, setMoviesListLength] = useState(12);
+  // toasty
+  const [toastyText, setToastText] = useState('');
+  const [isSuccess, setisSuccess] = useState(false);
+  const [showToasty, setShowToasty] = useState(false);
 
   const [width, setWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
@@ -80,9 +84,14 @@ function App() {
   function handleEditProfile({name, email}) {
     return mainApi.updateProfile(name, email)
       .then((data) => {
-        setCurrentUser(data)
+        setCurrentUser(data);
+        setToastText('Данные сохранены');
+        setisSuccess(true);
       })
-      .catch((err) => console.log(err.message))
+      .catch((err) => {
+          setToastText(err.message)
+          setisSuccess(false);
+      })
   }
 
   // выход
@@ -234,6 +243,10 @@ function App() {
                     <Profile 
                       editProfile={handleEditProfile}
                       handleSignout={handleSignout}
+                      toastyText={toastyText}
+                      isSuccess={isSuccess}
+                      showToasty={showToasty}
+                      setShowToasty={setShowToasty}
                   />
                   </ProtectedRoute>
                 }                
