@@ -18,7 +18,9 @@ export default function SearchForm({
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleSearch(values.search);
+    if(isValid) {
+      handleSearch(values.search);
+    }
   }
   // хак, чтобы отображать в placeholder при первом рендеринге слово "Фильм"
   useEffect(() => {

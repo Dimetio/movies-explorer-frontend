@@ -16,9 +16,7 @@ import ProtectedRoute  from '../ProtectedRoute/ProtectedRoute';
 import DisableComponentContext from '../../contexts/DisableComponent';
 import CurrentUserContext from "../../contexts/CurrentUserContext"
 // api
-import beatfilmMoviesApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
-
 
 function toggleClassBody(isOpen) {
   document.body.classList.toggle('overflow-hidden', isOpen);
@@ -33,9 +31,9 @@ function App() {
   // массив сохраненных фильмов
   const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('saved-movies')) ?? []);
   // количество новых карточек
-  const [numberOfNew, setNumberOfNew] = useState(0);
+  const [numberOfNew, setNumberOfNew] = useState(3);
   // длина изначального массива фильмов
-  const [moviesListLength, setMovieListLength] = useState(0);
+  const [moviesListLength, setMoviesListLength] = useState(12);
 
   const [width, setWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
@@ -144,20 +142,20 @@ function App() {
 
  // кнопка Ещё
   function getMoreMovies() {
-    setMovieListLength(moviesListLength + numberOfNew);
+    setMoviesListLength(moviesListLength + numberOfNew);
   }
 
   // меняю вывод максимальное количество карточек
   useEffect(() => { 
     if(width >= 1140) {
       setNumberOfNew(3);
-      setMovieListLength(12);
+      setMoviesListLength(12);
     } else if(width < 1140) {
       setNumberOfNew(2);
-      setMovieListLength(8);
+      setMoviesListLength(8);
     } else if(width < 708) {
       setNumberOfNew(1);
-      setMovieListLength(5);
+      setMoviesListLength(5);
     }
   }, [width]);
 
