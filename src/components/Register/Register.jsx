@@ -4,12 +4,19 @@ import DisableComponentContext from '../../contexts/DisableComponent';
 import './Register.css';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
+import Toasty from '../Toasty/Toasty';
 
 import useFormAndValidation from '../../hook/useFormAndValidation';
 
-export default function Register({signup, isLoggedIn}) {
+export default function Register({
+  signup,
+  isLoggedIn,
+  toastyText,
+  isSuccess,
+  showToasty
+}) {
   const navigate = useNavigate();
-  const {values, handleChange, isValid, errors } = useFormAndValidation();
+  const { values, handleChange, isValid, errors } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,19 +25,24 @@ export default function Register({signup, isLoggedIn}) {
 
   const disableComponent = useContext(DisableComponentContext);
 
-  useEffect(()=> {
-    if(isLoggedIn) {
+  useEffect(() => {
+    if (isLoggedIn) {
       navigate('/');
     }
-    disableComponent({header: true, footer: true});
+    disableComponent({ header: true, footer: true });
 
     return () => {
-      disableComponent({header: false, footer: false})
+      disableComponent({ header: false, footer: false })
     }
   }, [disableComponent, isLoggedIn, navigate]);
-  
+
   return (
     <section className="register">
+      <Toasty
+        showToasty={showToasty}
+        toastyText={toastyText}
+        isSuccess={isSuccess}
+      />
       <Form
         title="Добро пожаловать!"
         buttonText="Зарегистрироваться"
@@ -40,7 +52,7 @@ export default function Register({signup, isLoggedIn}) {
         handleSubmit={handleSubmit}
         isValid={isValid}
       >
-        <Input 
+        <Input
           inputTitle="Имя"
           name="name"
           type="text"
@@ -55,7 +67,7 @@ export default function Register({signup, isLoggedIn}) {
           errors={errors.name}
         />
 
-        <Input 
+        <Input
           inputTitle="E-mail"
           name="email"
           type="text"
@@ -69,7 +81,7 @@ export default function Register({signup, isLoggedIn}) {
           pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
         />
 
-        <Input 
+        <Input
           inputTitle="Пароль"
           name="password"
           type="password"
@@ -80,9 +92,9 @@ export default function Register({signup, isLoggedIn}) {
           minLength="4"
           autoComplete="off"
           handleChange={handleChange}
-          errors={errors.password}           
+          errors={errors.password}
         />
-      </Form>   
+      </Form>
     </section>
   )
 }

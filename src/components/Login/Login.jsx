@@ -1,16 +1,23 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DisableComponentContext from '../../contexts/DisableComponent';
 import useFormAndValidation from '../../hook/useFormAndValidation';
+import Toasty from '../Toasty/Toasty';
 
 import './Login.css';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 
-export default function Login({signin, isLoggedIn}) {
+export default function Login({
+  signin,
+  isLoggedIn,
+  toastyText,
+  isSuccess,
+  showToasty
+}) {
   const navigate = useNavigate();
-  const {values, handleChange, isValid, errors} = useFormAndValidation();
-  
+  const { values, handleChange, isValid, errors } = useFormAndValidation();
+
   function handleSubmit(e) {
     e.preventDefault();
     signin(values.email, values.password);
@@ -18,20 +25,25 @@ export default function Login({signin, isLoggedIn}) {
 
   const disableComponent = useContext(DisableComponentContext);
 
-  useEffect(()=> {
-    if(isLoggedIn) {
+  useEffect(() => {
+    if (isLoggedIn) {
       navigate('/');
     }
 
-    disableComponent({header: true, footer: true});
+    disableComponent({ header: true, footer: true });
 
     return () => {
-      disableComponent({header: false, footer: false})
+      disableComponent({ header: false, footer: false })
     }
   }, [disableComponent, isLoggedIn, navigate]);
 
   return (
     <section className="register">
+      <Toasty
+        showToasty={showToasty}
+        toastyText={toastyText}
+        isSuccess={isSuccess}
+      />
       <Form
         title="Рады видеть!"
         buttonText="Войти"
@@ -41,7 +53,7 @@ export default function Login({signin, isLoggedIn}) {
         handleSubmit={handleSubmit}
         isValid={isValid}
       >
-        <Input 
+        <Input
           inputTitle="E-mail"
           name="email"
           type="email"
@@ -53,7 +65,7 @@ export default function Login({signin, isLoggedIn}) {
           errors={errors.email}
         />
 
-        <Input 
+        <Input
           inputTitle="Пароль"
           name="password"
           type="password"
@@ -65,7 +77,7 @@ export default function Login({signin, isLoggedIn}) {
           minLength="4"
           errors={errors.password}
         />
-        
+
       </Form>
     </section>
   )

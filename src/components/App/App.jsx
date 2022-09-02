@@ -11,7 +11,7 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
-import ProtectedRoute  from '../ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 // contextes
 import DisableComponentContext from '../../contexts/DisableComponent';
 import CurrentUserContext from "../../contexts/CurrentUserContext"
@@ -25,7 +25,7 @@ function toggleClassBody(isOpen) {
 function App() {
   // флаг для бургера
   const [isOpen, setIsOpen] = useState(false);
-  const [disableComponent, setDisableComponent] = useState({header: false, footer: false})
+  const [disableComponent, setDisableComponent] = useState({ header: false, footer: false })
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   // массив сохраненных фильмов
@@ -36,12 +36,13 @@ function App() {
   const [moviesListLength, setMoviesListLength] = useState(12);
   // toasty
   const [toastyText, setToastText] = useState('');
-  const [isSuccess, setisSuccess] = useState(false);
+  const [isSuccess, setisSuccess] = useState(false); // вешаю нужный класс на тост
   const [showToasty, setShowToasty] = useState(false);
 
   const [width, setWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const location = useLocation();
+
   // проверка токена
   function checkToken() {
     mainApi.getToken()
@@ -57,7 +58,7 @@ function App() {
           navigate('/signin');
         }
       })
-      .catch(err => console.log(err.message))
+      .catch(err => setToastText(err.message))
   }
 
   // регистрация
@@ -66,7 +67,14 @@ function App() {
       .then(() => {
         handleSignin(email, password);
       })
-      .catch(err => console.log(err.message))
+      .catch(err => {
+        setShowToasty(true);
+        setToastText(err.message);
+        // хак, чтобы сбрасывать стейт
+        setTimeout(()=>{
+          setShowToasty(false);
+        }, 3000);
+      })
   }
 
   // вход
@@ -75,13 +83,19 @@ function App() {
       .then(() => {
         setIsLoggedIn(true);
         setCurrentUser(email, password);
-        navigate('/movies', { replace: true })            
+        navigate('/movies', { replace: true });
       })
-      .catch(err => console.log(err.message)) 
+      .catch(err => {
+        setShowToasty(true);
+        setToastText(err.message);
+        setTimeout(()=>{
+          setShowToasty(false);
+        }, 3000);
+      })
   }
 
   // редактрование профиля
-  function handleEditProfile({name, email}) {
+  function handleEditProfile({ name, email }) {
     return mainApi.updateProfile(name, email)
       .then((data) => {
         setCurrentUser(data);
@@ -89,8 +103,8 @@ function App() {
         setisSuccess(true);
       })
       .catch((err) => {
-          setToastText(err.message)
-          setisSuccess(false);
+        setToastText(err.message)
+        setisSuccess(false);
       })
   }
 
@@ -101,9 +115,9 @@ function App() {
         setIsLoggedIn(false);
         setCurrentUser({});
         localStorage.clear();
-        navigate('/', { replace: true });  
+        navigate('/', { replace: true });
       })
-      .catch(err => console.log(err.message))
+      .catch(err => setToastText(err.message))
   }
 
   // бургер/крестик
@@ -149,20 +163,20 @@ function App() {
     setWidth(window.innerWidth);
   }
 
- // кнопка Ещё
+  // кнопка Ещё
   function getMoreMovies() {
     setMoviesListLength(moviesListLength + numberOfNew);
   }
 
   // меняю вывод максимальное количество карточек
-  useEffect(() => { 
-    if(width >= 1140) {
+  useEffect(() => {
+    if (width >= 1140) {
       setNumberOfNew(3);
       setMoviesListLength(12);
-    } else if(width < 1140) {
+    } else if (width < 1140) {
       setNumberOfNew(2);
       setMoviesListLength(8);
-    } else if(width < 708) {
+    } else if (width < 708) {
       setNumberOfNew(1);
       setMoviesListLength(5);
     }
@@ -180,16 +194,16 @@ function App() {
 
   // при входе делаю запрос и сохраняю фильмы в localStorage
   useEffect(() => {
-    if(isLoggedIn && savedMovies.length === 0) {
+    if (isLoggedIn && savedMovies.length === 0) {
       mainApi.getSavedMovies()
-      .then(savedMoviesList => {
-        if(savedMoviesList) {
-          localStorage.setItem('saved-movies', JSON.stringify(savedMoviesList));
-          setSavedMovies(savedMoviesList);
-        }
-      })
+        .then(savedMoviesList => {
+          if (savedMoviesList) {
+            localStorage.setItem('saved-movies', JSON.stringify(savedMoviesList));
+            setSavedMovies(savedMoviesList);
+          }
+        })
       //.catch(() => setPretext('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'))
-    }   
+    }
   }, [isLoggedIn, savedMovies.length]);
 
   return (
@@ -203,77 +217,89 @@ function App() {
             handleIconClick={handleIconClick}
             headerDisable={disableComponent.header}
           />
-            <Routes>
-              <Route 
-                path="/movies"
-                element={
-                  <ProtectedRoute
-                    isLoggedIn={isLoggedIn}
-                  >
-                    <Movies
-                      handleMovieIconClick={handleMovieIconClick} // обработчик по лайку
-                      moviesListLength={moviesListLength} // сколько выводить фильмов
-                      getMoreMovies={getMoreMovies} // обработчик кнопки ещё
-                      savedMovies={savedMovies} // массив сох.фильмов, чтобы проставить лайку сразу
-                    />
-                  </ProtectedRoute>
-                }
-              />
-
-              <Route 
-                path="/saved-movies"
-                element={
-                  <ProtectedRoute
-                    isLoggedIn={isLoggedIn}
-                  >
-                    <SavedMovies
-                      movies={savedMovies}
-                      handleMovieIconClick={handleDeleteMovie}
-                    />
-                  </ProtectedRoute>                
-                }
-              />
-
-              <Route 
-                path="/profile"
-                element={
-                  <ProtectedRoute
-                    isLoggedIn={isLoggedIn}
-                  >
-                    <Profile 
-                      editProfile={handleEditProfile}
-                      handleSignout={handleSignout}
-                      toastyText={toastyText}
-                      isSuccess={isSuccess}
-                      showToasty={showToasty}
-                      setShowToasty={setShowToasty}
+          <Routes>
+            <Route
+              path="/movies"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                >
+                  <Movies
+                    handleMovieIconClick={handleMovieIconClick} // обработчик по лайку
+                    moviesListLength={moviesListLength} // сколько выводить фильмов
+                    getMoreMovies={getMoreMovies} // обработчик кнопки ещё
+                    savedMovies={savedMovies} // массив сох.фильмов, чтобы проставить лайку сразу
                   />
-                  </ProtectedRoute>
-                }                
-              />
+                </ProtectedRoute>
+              }
+            />
 
-              <Route 
-                path="/signin"
-                element={<Login signin={handleSignin} isLoggedIn={isLoggedIn}/>}
-              />
+            <Route
+              path="/saved-movies"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                >
+                  <SavedMovies
+                    movies={savedMovies}
+                    handleMovieIconClick={handleDeleteMovie}
+                  />
+                </ProtectedRoute>
+              }
+            />
 
-              <Route 
-                path="/signup"
-                element={<Register signup={handleSignup} isLoggedIn={isLoggedIn}/>}
-              />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                >
+                  <Profile
+                    editProfile={handleEditProfile}
+                    handleSignout={handleSignout}
+                    toastyText={toastyText}
+                    isSuccess={isSuccess}
+                  />
+                </ProtectedRoute>
+              }
+            />
 
-              <Route 
-                path="/"
-                element={<Main />}
-                exact
-              />
+            <Route
+              path="/signin"
+              element={
+                <Login
+                  signin={handleSignin}
+                  isLoggedIn={isLoggedIn}
+                  toastyText={toastyText}
+                  showToasty={showToasty}
+                />
+              }
+            />
 
-              <Route 
-                path="*"
-                element={<NotFound />}
-              />
-            </Routes>
-          <Footer 
+            <Route
+              path="/signup"
+              element={
+                <Register
+                  signup={handleSignup}
+                  isLoggedIn={isLoggedIn}
+                  toastyText={toastyText}
+                  showToasty={showToasty}
+                />
+              }
+            />
+
+            <Route
+              path="/"
+              element={<Main />}
+              exact
+            />
+
+            <Route
+              path="*"
+              element={<NotFound />}
+            />
+          </Routes>
+          <Footer
             footerDisable={disableComponent.footer}
           />
         </div>

@@ -11,12 +11,12 @@ export default function Profile({ editProfile,
   handleSignout,
   toastyText,
   isSuccess,
-  showToasty,
-  setShowToasty
 }) {
   const { values, setValues, handleChange, isValid, setIsValid, errors } = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false); // режим редактирования
+
+  const [showToasty, setShowToasty] = useState(false);
 
   function handleEditProfile(e) {
     e.preventDefault();
