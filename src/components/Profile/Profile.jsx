@@ -34,7 +34,7 @@ export default function Profile({ editProfile,
   const disableComponent = useContext(DisableComponentContext);
 
   useEffect(() => {
-    // заполняю поля контекста юзера
+    // заполняю поля контекстом юзера
     setValues({ name: currentUser.name, email: currentUser.email });
 
     disableComponent({ footer: true, ...disableComponent });

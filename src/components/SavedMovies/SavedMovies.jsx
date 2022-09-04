@@ -15,6 +15,7 @@ export default function SavedMovies({
   const [pretext, setPretext] = useState('Введите название фильма в поисковой строке');
 
   const filteredMovies = useFilteredMovies(movies, localCheck, localValue);
+  const [localSavedMovies, setLocalSavedMovies] = useState(JSON.parse(localStorage.getItem('filtered-saved-movies')) ?? filteredMovies);
 
   function onCheckChange(checked) {
     localStorage.setItem('saved-movies-check', checked);
@@ -32,6 +33,14 @@ export default function SavedMovies({
     }
 
   }, [movies.length, filteredMovies.length]);
+
+  useEffect(() => {
+    if (localSavedMovies !== filteredMovies) {
+      localStorage.setItem('filtered-saved-movies', JSON.stringify(filteredMovies));
+      setLocalSavedMovies(filteredMovies);
+    }
+  }, [filteredMovies, localSavedMovies]);
+
   return (
     <>
       <SearchForm
@@ -42,7 +51,7 @@ export default function SavedMovies({
       />
 
       <MoviesCardList
-        movies={filteredMovies}
+        movies={localSavedMovies}
         handleMovieIconClick={handleMovieIconClick}
       />
 

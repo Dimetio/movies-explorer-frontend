@@ -1,5 +1,5 @@
 // react
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 // custom
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
@@ -15,11 +15,15 @@ export default function Movies({
   getMoreMovies,
   savedMovies,
 }) {
+
   const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) ?? []);
   const [localCheck, setLocalCheck] = useState(JSON.parse(localStorage.getItem('movies-check')) ?? false);
   const [localValue, setLocalValue] = useState(localStorage.getItem('movies-search-value') ?? '');
   const [isLoading, setIsLoading] = useState(false);
   const [pretext, setPretext] = useState('Введите название фильма в поисковой строке');
+
+  const filteredMovies = useFilteredMovies(movies, localCheck, localValue);
+  const [localMovies, setLocalMovies] = useState(JSON.parse(localStorage.getItem('filtered-movies')) ?? filteredMovies);
 
   function getAllMovies() {
     setIsLoading(true);
@@ -33,8 +37,6 @@ export default function Movies({
       .catch(() => setPretext('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'))
       .finally(() => setIsLoading(false))
   }
-
-  const filteredMovies = useFilteredMovies(movies, localCheck, localValue);
 
   function onCheckChange(checked) {
     localStorage.setItem('movies-check', checked);
@@ -53,8 +55,14 @@ export default function Movies({
     if (movies.length && !filteredMovies.length) {
       setPretext('Ничего не найдено');
     }
-
   }, [movies.length, filteredMovies.length]);
+
+  useEffect(() => {
+    if (localMovies !== filteredMovies) {
+      localStorage.setItem('filtered-movies', JSON.stringify(filteredMovies));
+      setLocalMovies(filteredMovies);
+    }
+  }, [filteredMovies, localMovies]);
 
   return (
     <>
@@ -70,7 +78,7 @@ export default function Movies({
         <Preloader />
         :
         <MoviesCardList
-          movies={filteredMovies}
+          movies={localMovies}
           handleMovieIconClick={handleMovieIconClick}
           moviesListLength={moviesListLength}
           savedMovies={savedMovies}

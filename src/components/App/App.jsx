@@ -156,6 +156,7 @@ function App() {
         setSavedMovies(resultSavedMovie);
         localStorage.setItem('saved-movies', JSON.stringify(resultSavedMovie));
       })
+      .catch(err => console.log(err.message))
   }
 
   // обновляю стейт ширины экрана
@@ -202,7 +203,7 @@ function App() {
             setSavedMovies(savedMoviesList);
           }
         })
-      //.catch(() => setPretext('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'))
+      .catch((err) => console.log(err.message));
     }
   }, [isLoggedIn, savedMovies.length]);
 
