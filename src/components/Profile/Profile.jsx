@@ -60,7 +60,6 @@ export default function Profile({ editProfile,
         />
         <form className="profile-form form">
           <h2 className="profile-form__title">{`Привет, ${values.name}`}</h2>
-          <div className="profile-form__inputs">
             <Input
               inputTitle="Имя"
               name="name"
@@ -90,7 +89,6 @@ export default function Profile({ editProfile,
               errors={errors.email}
               pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
             />
-          </div>
 
           <button
             type={isEdit ? "submit" : "button"}
