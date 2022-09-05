@@ -7,10 +7,6 @@
   border-radius: 6px;
 }
 
-.card:hover {
-  cursor: pointer;
-}
-
 .card-wrap {
   display: flex;
   align-items: center;
@@ -21,10 +17,11 @@
 
 .card__img {
   width: 100%;
-  height: auto;
+  height: 203px;
   max-height: 203px;
   margin-bottom: 10px;
   border-radius: 6px;
+  object-fit: cover;
 }
 
 .card__title {
@@ -41,6 +38,12 @@
   border: none;
   background-color: transparent;
   padding: 0;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.card-btn:hover {
+  transform: scale(1.1);
 }
 
 .card__duration {
@@ -58,6 +61,9 @@
     max-width: 339px;
     height: 262px;
   }
+  .card__img {
+    height: 190px;
+  }
 }
 
 @media (max-width: 425px) {
@@ -68,6 +74,7 @@
 
   .card__img {
     margin-bottom: 14px;
+    height: 168px;
   }
 
   .card-wrap {

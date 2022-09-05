@@ -1,30 +1,17 @@
-import { useState } from "react";
 import { Link } from 'react-router-dom';
-
 import './Form.css';
 import logo from '../../images/logo.svg';
 
 export default function Form({
-  onSubmit, 
+  handleSubmit, 
   title, 
   children, 
   buttonText, 
   question, 
   linkText, 
-  url
+  url,
+  isValid
   }) {
-  const [inputsData, setInputsData] = useState({});
-
-  function onChangeInput(inputData) {
-    setInputsData({...inputsData, ...inputData})
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    onSubmit(inputsData);
-    
-    console.log(inputsData);
-  }
 
   return (
     <>
@@ -36,10 +23,14 @@ export default function Form({
 
       <form className="form" onSubmit={handleSubmit}>
         <div className="form__inputs">
-          {children({ onChangeInput, inputsData})}
+          {children}
         </div>
 
-        <button className="form__boutton" type="submit">
+        <button 
+          className={`form__button ${!isValid && 'form__button_inactive'}`} 
+          type="submit"
+          disabled={!isValid}
+        >
           {buttonText}
         </button>
       </form>

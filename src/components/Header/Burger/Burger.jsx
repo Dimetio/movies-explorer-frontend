@@ -1,6 +1,6 @@
 import './Burger.css';
-import close from '../../images/close.svg'
-import burger from '../../images/burger.svg'
+import close from '../../../images/close.svg'
+import burger from '../../../images/burger.svg'
 import NavTab from '../NavTab/NavTab';
 import AuthUser from '../AuthUser/AuthUser';
 
